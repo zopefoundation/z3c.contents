@@ -1,0 +1,7 @@
+====
+TODO
+====
+
+- implement functional doc tests with real traversable contents.html view
+
+- implement batch and test with more items
