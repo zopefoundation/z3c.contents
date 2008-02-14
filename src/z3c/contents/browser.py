@@ -44,11 +44,13 @@ from z3c.contents import interfaces
 _ = zope.i18nmessageid.MessageFactory('z3c')
 
 
-def getPrincipalClipboard(request):
+def queryPrincipalClipboard(request):
     """Return the clipboard based on the request."""
     user = request.principal
-    annotations = IAnnotations(user)
-    return IPrincipalClipboard(annotations)
+    annotations = IAnnotations(user, None)
+    if annotations is None:
+        return None
+    return IPrincipalClipboard(annotations, None)
 
 
 def getDCTitle(ob):
@@ -102,6 +104,7 @@ class ContentsPage(table.Table, form.Form):
         # first setup columns and process the items as selected if any
         super(ContentsPage, self).update()
         # second find out if we support paste
+        self.clipboard = queryPrincipalClipboard(self.request)
         if self.allowPaste:
             self.supportsPaste = self.pasteable()
         self.updateWidgets()
@@ -115,8 +118,9 @@ class ContentsPage(table.Table, form.Form):
     def pasteable(self):
         """Decide if there is anything to paste."""
         target = self.context
-        clipboard = getPrincipalClipboard(self.request)
-        items = clipboard.getContents()
+        if self.clipboard is None:
+            return False
+        items = self.clipboard.getContents()
         for item in items:
             try:
                 obj = api.traverse(self.context, item['target'])
@@ -143,8 +147,7 @@ class ContentsPage(table.Table, form.Form):
         if not self.supportsPaste:
             return False
         # touch at least one item in clipboard to confirm contents
-        clipboard = getPrincipalClipboard(self.request)
-        items = clipboard.getContents()
+        items = self.clipboard.getContents()
         for item in items:
             try:
                 api.traverse(self.context, item['target'])
@@ -181,9 +184,8 @@ class ContentsPage(table.Table, form.Form):
 
         self.status = self.copyItemsSelected
         # store the requested operation in the principal annotations:
-        clipboard = getPrincipalClipboard(self.request)
-        clipboard.clearContents()
-        clipboard.addItems('copy', items)
+        self.clipboard.clearContents()
+        self.clipboard.addItems('copy', items)
 
     @button.buttonAndHandler(_('Cut'), name='cut')
     def handleCut(self, action):
@@ -212,14 +214,12 @@ class ContentsPage(table.Table, form.Form):
 
         self.status = self.cutItemsSelected
         # store the requested operation in the principal annotations:
-        clipboard = getPrincipalClipboard(self.request)
-        clipboard.clearContents()
-        clipboard.addItems('cut', items)
+        self.clipboard.clearContents()
+        self.clipboard.addItems('cut', items)
 
     @button.buttonAndHandler(_('Paste'), name='paste')
     def handlePaste(self, action):
-        clipboard = getPrincipalClipboard(self.request)
-        items = clipboard.getContents()
+        items = self.clipboard.getContents()
         moved = False
         not_pasteable_ids = []
         for item in items:
@@ -250,7 +250,7 @@ class ContentsPage(table.Table, form.Form):
 
         if moved:
             # Clear the clipboard if we do a move, but not if we only do a copy
-            clipboard.clearContents()
+            self.clipboard.clearContents()
 
         if not_pasteable_ids != []:
             # Show the ids of objects that can't be pasted because
