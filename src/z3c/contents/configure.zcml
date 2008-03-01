@@ -1,6 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    i18n_domain="zam">
+    i18n_domain="z3c">
 
   <adapter
       name="checkBoxColumn"
