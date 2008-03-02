@@ -115,20 +115,17 @@ Now we can create a ContentsPage:
     <div>
       <div class="buttons">
         <input type="submit" id="contents-buttons-copy"
-         name="contents.buttons.copy"
-         class="submit-widget button-field" value="Copy" />
+               name="contents.buttons.copy"
+               class="submit-widget button-field" value="Copy" />
         <input type="submit" id="contents-buttons-cut"
-         name="contents.buttons.cut"
-         class="submit-widget button-field" value="Cut" />
-        <input type="submit" id="contents-buttons-paste"
-         name="contents.buttons.paste"
-         class="submit-widget button-field" value="Paste" />
+               name="contents.buttons.cut"
+               class="submit-widget button-field" value="Cut" />
         <input type="submit" id="contents-buttons-delete"
-         name="contents.buttons.delete"
-         class="submit-widget button-field" value="Delete" />
+               name="contents.buttons.delete"
+               class="submit-widget button-field" value="Delete" />
         <input type="submit" id="contents-buttons-rename"
-         name="contents.buttons.rename"
-         class="submit-widget button-field" value="Rename" />
+               name="contents.buttons.rename"
+               class="submit-widget button-field" value="Rename" />
       </div>
     </div>
   </form>
@@ -224,20 +221,17 @@ Now let's update and render the contents page again:
     <div>
       <div class="buttons">
         <input type="submit" id="contents-buttons-copy"
-         name="contents.buttons.copy"
-         class="submit-widget button-field" value="Copy" />
+               name="contents.buttons.copy"
+               class="submit-widget button-field" value="Copy" />
         <input type="submit" id="contents-buttons-cut"
-         name="contents.buttons.cut"
-         class="submit-widget button-field" value="Cut" />
-        <input type="submit" id="contents-buttons-paste"
-         name="contents.buttons.paste"
-         class="submit-widget button-field" value="Paste" />
+               name="contents.buttons.cut"
+               class="submit-widget button-field" value="Cut" />
         <input type="submit" id="contents-buttons-delete"
-         name="contents.buttons.delete"
-         class="submit-widget button-field" value="Delete" />
+               name="contents.buttons.delete"
+               class="submit-widget button-field" value="Delete" />
         <input type="submit" id="contents-buttons-rename"
-         name="contents.buttons.rename"
-         class="submit-widget button-field" value="Rename" />
+               name="contents.buttons.rename"
+               class="submit-widget button-field" value="Rename" />
       </div>
     </div>
   </form>
@@ -260,77 +254,86 @@ number names and not on the number itself.
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         name="contents" id="contents">
-    <div class="viewspace">
-      <div class="required-info">
-         <span class="required">*</span>
-         &ndash; required
-      </div>
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>X</th>
-              <th>Name</th>
-              <th>Created</th>
-              <th>Modified</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><input type="checkbox" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-              <td>zero</td>
-              <td>01/01/01 01:01</td>
-              <td>02/02/02 02:02</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
-              <td>third</td>
-              <td>01/01/01 01:01</td>
-              <td>02/02/02 02:02</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
-              <td>second</td>
-              <td>01/01/01 01:01</td>
-              <td>02/02/02 02:02</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
-              <td>fourth</td>
-              <td>01/01/01 01:01</td>
-              <td>02/02/02 02:02</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
-              <td>first</td>
-              <td>01/01/01 01:01</td>
-              <td>02/02/02 02:02</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div>
-      <div class="buttons">
-        <input type="submit" id="contents-buttons-copy"
-         name="contents.buttons.copy"
-         class="submit-widget button-field" value="Copy" />
-        <input type="submit" id="contents-buttons-cut"
-         name="contents.buttons.cut"
-         class="submit-widget button-field" value="Cut" />
-        <input type="submit" id="contents-buttons-paste"
-         name="contents.buttons.paste"
-         class="submit-widget button-field" value="Paste" />
-        <input type="submit" id="contents-buttons-delete"
-         name="contents.buttons.delete"
-         class="submit-widget button-field" value="Delete" />
-        <input type="submit" id="contents-buttons-rename"
-         name="contents.buttons.rename"
-         class="submit-widget button-field" value="Rename" />
-      </div>
-    </div>
-  </form>
+  ...
+  <tbody>
+    <tr>
+      <td><input type="checkbox" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+      <td>zero</td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
+      <td>third</td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
+      <td>second</td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
+      <td>fourth</td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
+      <td>first</td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+  </tbody>
+  ...
 
+Let's make coverage happy and sort on the rename column:
+
+  >>> sorterRequest = TestRequest(form={'contents-sortOn': 'contents-renameColumn-1',
+  ...                                   'contents-sortOrder':'ascending'})
+  >>> alsoProvides(sorterRequest, IDivFormLayer)
+  >>> sortingPage = browser.ContentsPage(container, sorterRequest)
+  >>> sortingPage.update()
+  >>> print sortingPage.render()
+  <form action="http://127.0.0.1" method="post"
+        enctype="multipart/form-data" class="edit-form"
+        name="contents" id="contents">
+  ...
+  <tbody>
+    <tr>
+      <td><input type="checkbox" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
+      <td>first</td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
+      <td>fourth</td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
+      <td>second</td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
+      <td>third</td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+      <td>zero</td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+  </tbody>
+  ...
 
 Copy
 ----
@@ -344,7 +347,8 @@ And we need another contents page instance:
 
   >>> secondPage = browser.ContentsPage(secondContainer, request)
 
-As you can see the second page for the second container has no items:
+As you can see the second page for the second container has no items and 
+no buttons:
 
   >>> secondPage.update()
   >>> print secondPage.render()
@@ -366,26 +370,13 @@ As you can see the second page for the second container has no items:
               <th>Modified</th>
             </tr>
           </thead>
+          <tbody>
+          </tbody>
         </table>
       </div>
     </div>
     <div>
       <div class="buttons">
-        <input type="submit" id="contents-buttons-copy"
-         name="contents.buttons.copy"
-         class="submit-widget button-field" value="Copy" />
-        <input type="submit" id="contents-buttons-cut"
-         name="contents.buttons.cut"
-         class="submit-widget button-field" value="Cut" />
-        <input type="submit" id="contents-buttons-paste"
-         name="contents.buttons.paste"
-         class="submit-widget button-field" value="Paste" />
-        <input type="submit" id="contents-buttons-delete"
-         name="contents.buttons.delete"
-         class="submit-widget button-field" value="Delete" />
-        <input type="submit" id="contents-buttons-rename"
-         name="contents.buttons.rename"
-         class="submit-widget button-field" value="Rename" />
       </div>
     </div>
   </form>
@@ -457,7 +448,9 @@ Copy - Paste
 
 Now we can go to the second page and paste our selected object. Just prepare
 a request which simualtes that we clicked at the paste button and we can see
-that we pasted the selected item to the second container:
+that we pasted the selected item to the second container. You can see that 
+there is an additional ``Paste`` button becase we have some items for paste
+in the clipboard:
 
   >>> pasteRequest = TestRequest(form={'contents.buttons.paste': 'Paste'})
   >>> alsoProvides(pasteRequest, IDivFormLayer)
@@ -469,7 +462,7 @@ that we pasted the selected item to the second container:
         name="contents" id="contents">
   ...
         <div class="status">
-          <div class="summary">Data successfully copied</div>
+          <div class="summary">Data successfully pasted</div>
         </div>
   ...
     <thead>
@@ -489,6 +482,26 @@ that we pasted the selected item to the second container:
       </tr>
     </tbody>
   ...
+      <div>
+        <div class="buttons">
+          <input type="submit" id="contents-buttons-copy"
+                 name="contents.buttons.copy"
+                 class="submit-widget button-field" value="Copy" />
+          <input type="submit" id="contents-buttons-cut"
+                 name="contents.buttons.cut"
+                 class="submit-widget button-field" value="Cut" />
+          <input type="submit" id="contents-buttons-paste"
+                 name="contents.buttons.paste"
+                 class="submit-widget button-field" value="Paste" />
+          <input type="submit" id="contents-buttons-delete"
+                 name="contents.buttons.delete"
+                 class="submit-widget button-field" value="Delete" />
+          <input type="submit" id="contents-buttons-rename"
+                 name="contents.buttons.rename"
+                 class="submit-widget button-field" value="Rename" />
+        </div>
+      </div>
+    </form>
 
 
 Cut
@@ -571,7 +584,7 @@ And we can paste the selectded items to the second container:
         name="contents" id="contents">
   ...
         <div class="status">
-          <div class="summary">Data successfully copied</div>
+          <div class="summary">Data successfully pasted</div>
         </div>
   ...
   <table>
@@ -605,9 +618,28 @@ And we can paste the selectded items to the second container:
     </tbody>
   </table>
   ...
+    <div>
+      <div class="buttons">
+        <input type="submit" id="contents-buttons-copy"
+         name="contents.buttons.copy"
+         class="submit-widget button-field" value="Copy" />
+        <input type="submit" id="contents-buttons-cut"
+         name="contents.buttons.cut"
+         class="submit-widget button-field" value="Cut" />
+        <input type="submit" id="contents-buttons-delete"
+         name="contents.buttons.delete"
+         class="submit-widget button-field" value="Delete" />
+        <input type="submit" id="contents-buttons-rename"
+         name="contents.buttons.rename"
+         class="submit-widget button-field" value="Rename" />
+      </div>
+    </div>
+  </form>
+
 
 As you can see the first page does not contain the ``first`` and ``second`` 
-item after paste them to the second container:
+item after paste them to the second container. Also the ``paste button`` is
+gone:
 
   >>> firstPage.update()
   >>> print firstPage.render()
@@ -646,6 +678,23 @@ item after paste them to the second container:
     </tbody>
   </table>
   ...
+    <div>
+      <div class="buttons">
+        <input type="submit" id="contents-buttons-copy"
+               name="contents.buttons.copy"
+               class="submit-widget button-field" value="Copy" />
+        <input type="submit" id="contents-buttons-cut"
+               name="contents.buttons.cut"
+               class="submit-widget button-field" value="Cut" />
+        <input type="submit" id="contents-buttons-delete"
+               name="contents.buttons.delete"
+               class="submit-widget button-field" value="Delete" />
+        <input type="submit" id="contents-buttons-rename"
+               name="contents.buttons.rename"
+               class="submit-widget button-field" value="Rename" />
+      </div>
+    </div>
+  </form>
 
 
 Delete

@@ -21,15 +21,15 @@ import zope.interface
 import zope.i18nmessageid
 import zope.i18n
 from zope.annotation.interfaces import IAnnotations
-from zope.dublincore.interfaces import IZopeDublinCore
-from zope.dublincore.interfaces import IDCDescriptiveProperties
 from zope.copypastemove import ItemNotFoundError
 from zope.copypastemove.interfaces import IPrincipalClipboard
 from zope.copypastemove.interfaces import IObjectCopier, IObjectMover
 from zope.copypastemove.interfaces import IContainerItemRenamer
+from zope.app.container.interfaces import IContainerNamesContainer
 from zope.exceptions import DuplicationError
 from zope.exceptions.interfaces import UserError
 from zope.security.interfaces import Unauthorized
+from zope.traversing.interfaces import TraversalError
 from zope.traversing import api
 
 from zope.app.container.interfaces import DuplicateIDError
@@ -53,19 +53,33 @@ def queryPrincipalClipboard(request):
     return IPrincipalClipboard(annotations, None)
 
 
-def getDCTitle(ob):
-    dc = IDCDescriptiveProperties(ob, None)
-    if dc is None:
-        return None
-    else:
-        return dc.title
-
 def safeGetAttr(obj, attr, default):
     """Attempts to read the attr, returning default if Unauthorized."""
     try:
         return getattr(obj, attr, default)
     except Unauthorized:
         return default
+
+
+# conditions
+def canCut(form):
+    return form.supportsCut
+
+
+def canCopy(form):
+    return form.supportsCopy
+
+
+def canDelete(form):
+    return form.supportsDelete
+
+
+def canPaste(form):
+    return form.supportsPaste
+
+
+def canRename(form):
+    return form.supportsRename
 
 
 class ContentsPage(table.Table, form.Form):
@@ -77,24 +91,36 @@ class ContentsPage(table.Table, form.Form):
 
     # internal defaults
     selectedItems = []
-    supportsPaste = False
     ignoreContext = False
 
+    supportsCut = False
+    supportsCopy = False
+    supportsDelete = False
+    supportsPaste = False
+    supportsRename = False
+
     # customize this part
+    allowCut = True
+    allowCopy = True
+    allowDelete = True
     allowPaste = True
+    allowRename = True
+
     prefix = 'contents'
 
     # error messages
-    deleteErrorMessage = _('Could not delete the selected items')
-    deleteNoItemsMessage = _('No items selected for delete')
-    deleteSucsessMessage = _('Data successfully deleted')
+    cutNoItemsMessage = _('No items selected for cut')
+    cutItemsSelected = _('Items selected for cut')
 
     copyItemsSelected = _('Items choosen for copy')
     copyNoItemsMessage = _('No items selected for copy')
     copySucsessMessage = _('Data successfully copied')
 
-    cutNoItemsMessage = _('No items selected for cut')
-    cutItemsSelected = _('Items selected for cut')
+    deleteErrorMessage = _('Could not delete the selected items')
+    deleteNoItemsMessage = _('No items selected for delete')
+    deleteSucsessMessage = _('Data successfully deleted')
+
+    pasteSucsessMessage = _('Data successfully pasted')
 
     renameErrorMessage = _('Could not rename all selected items')
     renameDuplicationMessage = _('Duplicated item name')
@@ -105,17 +131,41 @@ class ContentsPage(table.Table, form.Form):
         super(ContentsPage, self).update()
         # second find out if we support paste
         self.clipboard = queryPrincipalClipboard(self.request)
-        if self.allowPaste:
-            self.supportsPaste = self.pasteable()
+        self.setupCopyPasteMove()
         self.updateWidgets()
         self.updateActions()
         self.actions.execute()
+
+    def setupCopyPasteMove(self):
+        hasContent = self.hasContent
+        if self.allowCut:
+            self.supportsCut = hasContent
+        if self.allowCopy:
+            self.supportsCopy = hasContent
+        if self.allowDelete:
+            self.supportsDelete = hasContent
+        if self.allowPaste:
+            self.supportsPaste = self.hasClipboardContents
+        if self.allowRename:
+            self.supportsRename = (hasContent and self.supportsCut and
+                    not IContainerNamesContainer.providedBy(self.context))
+
+    def updateAfterActionExecution(self):
+        """Adjust new container length and copa paste move status."""
+        super(ContentsPage, self).update()
+        self.setupCopyPasteMove()
+        self.updateActions()
 
     def render(self):
         """Render the template."""
         return self.template()
 
-    def pasteable(self):
+    @property
+    def hasContent(self):
+        return bool(self.values)
+
+    @property
+    def isPasteable(self):
         """Decide if there is anything to paste."""
         target = self.context
         if self.clipboard is None:
@@ -141,10 +191,11 @@ class ContentsPage(table.Table, form.Form):
                     raise
         return True
 
+    @property
     def hasClipboardContents(self):
         """Interogate the ``PrinicipalAnnotation`` to see if clipboard
         contents exist."""
-        if not self.supportsPaste:
+        if not self.isPasteable:
             return False
         # touch at least one item in clipboard to confirm contents
         items = self.clipboard.getContents()
@@ -157,7 +208,7 @@ class ContentsPage(table.Table, form.Form):
                 return True
         return False
 
-    @button.buttonAndHandler(_('Copy'), name='copy')
+    @button.buttonAndHandler(_('Copy'), name='copy', condition=canCopy)
     def handleCopy(self, action):
         if not len(self.selectedItems):
             self.status = self.copyNoItemsMessage
@@ -187,7 +238,7 @@ class ContentsPage(table.Table, form.Form):
         self.clipboard.clearContents()
         self.clipboard.addItems('copy', items)
 
-    @button.buttonAndHandler(_('Cut'), name='cut')
+    @button.buttonAndHandler(_('Cut'), name='cut', condition=canCut)
     def handleCut(self, action):
         if not len(self.selectedItems):
             self.status = self.cutNoItemsMessage
@@ -217,7 +268,7 @@ class ContentsPage(table.Table, form.Form):
         self.clipboard.clearContents()
         self.clipboard.addItems('cut', items)
 
-    @button.buttonAndHandler(_('Paste'), name='paste')
+    @button.buttonAndHandler(_('Paste'), name='paste', condition=canPaste)
     def handlePaste(self, action):
         items = self.clipboard.getContents()
         moved = False
@@ -264,10 +315,10 @@ class ContentsPage(table.Table, form.Form):
         else:
             # we need to update the table rows again, otherwise we don't 
             # see the new item in the table
-            super(ContentsPage, self).update()
-            self.status = self.copySucsessMessage
+            self.updateAfterActionExecution()
+            self.status = self.pasteSucsessMessage
 
-    @button.buttonAndHandler(_('Delete'), name='delete')
+    @button.buttonAndHandler(_('Delete'), name='delete', condition=canDelete)
     def handleDelete(self, action):
         if not len(self.selectedItems):
             self.status = self.deleteNoItemsMessage
@@ -278,11 +329,11 @@ class ContentsPage(table.Table, form.Form):
         except KeyError:
             self.status = self.deleteErrorMessage
             transaction.doom()
-        self.status = self.deleteSucsessMessage
         # update the table rows before we start with rendering
-        super(ContentsPage, self).update()
+        self.updateAfterActionExecution()
+        self.status = self.deleteSucsessMessage
 
-    @button.buttonAndHandler(_('Rename'), name='rename')
+    @button.buttonAndHandler(_('Rename'), name='rename', condition=canRename)
     def handlerRename(self, action):
         changed = False
         errorMessages = {}
@@ -315,7 +366,7 @@ class ContentsPage(table.Table, form.Form):
         if changed:
             self.status = self.renameErrorMessage
             # update the table rows before we start with rendering
-            super(ContentsPage, self).update()
+            self.updateAfterActionExecution()
             # and set error message back to the new rename column
             renameCol = self.columnByName.get('renameColumn')
             if renameCol:

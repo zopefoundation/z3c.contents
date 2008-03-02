@@ -28,15 +28,12 @@ from zope.copypastemove.interfaces import IContainerItemRenamer
 from zope.copypastemove.interfaces import IObjectMover
 from zope.copypastemove.interfaces import IObjectCopier
 from zope.copypastemove.interfaces import IPrincipalClipboard
-from zope.publisher.browser import TestRequest
 from zope.testing import doctest
 from zope.app.container.interfaces import IContainer
 from zope.app.container.interfaces import IContained
 from zope.app.testing import setup
 
-import z3c.testing
 from z3c.macro import tales
-import z3c.form.testing 
 import z3c.table.testing 
 
 

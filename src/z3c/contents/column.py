@@ -17,7 +17,6 @@ $Id:$
 __docformat__ = "reStructuredText"
 
 import base64
-import binascii
 import zope.i18nmessageid
 from zope.traversing import api
 
