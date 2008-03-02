@@ -826,3 +826,9 @@ items get deleted and are gone now and the ``second`` item get renamed to
   >>> sorted(secondContainer.items())
   [(u'fifth', <Content Second 2>), (u'first', <Content First 1>),
    (u'zero', <Content Zero 0>)]
+
+
+Batching
+--------
+
+TODO: add tests for batching

@@ -1,5 +1,10 @@
 <div metal:use-macro="macro:form">
   <div metal:fill-slot="main">
     <tal:block replace="structure view/renderTable">table</tal:block>
+    <tal:block define="batch view/renderBatch">
+    <div class="batch" tal:condition="batch">
+      <tal:block replace="structure batch">table</tal:block>
+    </div>
+    </tal:block>
   </div>
 </div>
