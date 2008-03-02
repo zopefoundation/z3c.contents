@@ -19,6 +19,7 @@ __docformat__ = "reStructuredText"
 import base64
 import zope.i18nmessageid
 from zope.traversing import api
+from zope.traversing.browser import absoluteURL
 
 from z3c.table import column
 
@@ -52,15 +53,20 @@ class RenameColumn(column.NameColumn):
         key = self.getItemKey(item)
         return self.request.get(key)
 
+    def renderLink(self, item):
+        return '<a href="%s">%s</a>' % (absoluteURL(item, self.request), 
+            api.getName(item))
+
     def renderCell(self, item):
         key = self.getItemKey(item)
         value = self.getItemValue(item)
+        itemLink = self.renderLink(item)
         newName = self.getRenameValue(item)
         if newName is None:
             newName = self.getItemValue(item)
         if self.isExecuted and item in self.table.selectedItems:
             msg = self.errorMessages.get(key, u'')
             return u'%s&nbsp;<input type="text" name="%s" value="%s" />%s' % (
-                value, key, newName, msg)
+                itemLink, key, newName, msg)
         else:
-            return api.getName(item)
+            return itemLink

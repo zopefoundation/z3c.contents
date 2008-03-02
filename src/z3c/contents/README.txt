@@ -183,38 +183,38 @@ Now let's update and render the contents page again:
               <th>Modified</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
-              <td>first</td>
-              <td>01/01/01 01:01</td>
-              <td>02/02/02 02:02</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
-              <td>fourth</td>
-              <td>01/01/01 01:01</td>
-              <td>02/02/02 02:02</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
-              <td>second</td>
-              <td>01/01/01 01:01</td>
-              <td>02/02/02 02:02</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
-              <td>third</td>
-              <td>01/01/01 01:01</td>
-              <td>02/02/02 02:02</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-              <td>zero</td>
-              <td>01/01/01 01:01</td>
-              <td>02/02/02 02:02</td>
-            </tr>
-          </tbody>
+            <tbody>
+              <tr>
+                <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
+                <td><a href="http://127.0.0.1/container/first">first</a></td>
+                <td>01/01/01 01:01</td>
+                <td>02/02/02 02:02</td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
+                <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
+                <td>01/01/01 01:01</td>
+                <td>02/02/02 02:02</td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
+                <td><a href="http://127.0.0.1/container/second">second</a></td>
+                <td>01/01/01 01:01</td>
+                <td>02/02/02 02:02</td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
+                <td><a href="http://127.0.0.1/container/third">third</a></td>
+                <td>01/01/01 01:01</td>
+                <td>02/02/02 02:02</td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+                <td><a href="http://127.0.0.1/container/zero">zero</a></td>
+                <td>01/01/01 01:01</td>
+                <td>02/02/02 02:02</td>
+              </tr>
+            </tbody>
         </table>
       </div>
     </div>
@@ -258,31 +258,31 @@ number names and not on the number itself.
   <tbody>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-      <td>zero</td>
+      <td><a href="http://127.0.0.1/container/zero">zero</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
-      <td>third</td>
+      <td><a href="http://127.0.0.1/container/third">third</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
-      <td>second</td>
+      <td><a href="http://127.0.0.1/container/second">second</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
-      <td>fourth</td>
+      <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
-      <td>first</td>
+      <td><a href="http://127.0.0.1/container/first">first</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
@@ -304,31 +304,31 @@ Let's make coverage happy and sort on the rename column:
   <tbody>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
-      <td>first</td>
+      <td><a href="http://127.0.0.1/container/first">first</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
-      <td>fourth</td>
+      <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
-      <td>second</td>
+      <td><a href="http://127.0.0.1/container/second">second</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
-      <td>third</td>
+      <td><a href="http://127.0.0.1/container/third">third</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-      <td>zero</td>
+      <td><a href="http://127.0.0.1/container/zero">zero</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
@@ -400,46 +400,46 @@ we will get as form message:
           <div class="summary">Items choosen for copy</div>
         </div>
   ...
-    <thead>
-      <tr>
-        <th>X</th>
-        <th>Name</th>
-        <th>Created</th>
-        <th>Modified</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
-        <td>first</td>
-        <td>01/01/01 01:01</td>
-        <td>02/02/02 02:02</td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
-        <td>fourth</td>
-        <td>01/01/01 01:01</td>
-        <td>02/02/02 02:02</td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
-        <td>second</td>
-        <td>01/01/01 01:01</td>
-        <td>02/02/02 02:02</td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
-        <td>third</td>
-        <td>01/01/01 01:01</td>
-        <td>02/02/02 02:02</td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero" checked="checked" /></td>
-        <td>zero</td>
-        <td>01/01/01 01:01</td>
-        <td>02/02/02 02:02</td>
-      </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th>X</th>
+      <th>Name</th>
+      <th>Created</th>
+      <th>Modified</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
+      <td><a href="http://127.0.0.1/container/first">first</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
+      <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
+      <td><a href="http://127.0.0.1/container/second">second</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
+      <td><a href="http://127.0.0.1/container/third">third</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero" checked="checked" /></td>
+      <td><a href="http://127.0.0.1/container/zero">zero</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+  </tbody>
   ...
 
 
@@ -465,43 +465,35 @@ in the clipboard:
           <div class="summary">Data successfully pasted</div>
         </div>
   ...
-    <thead>
-      <tr>
-        <th>X</th>
-        <th>Name</th>
-        <th>Created</th>
-        <th>Modified</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-        <td>zero</td>
-        <td>01/01/01 01:01</td>
-        <td>02/02/02 02:02</td>
-      </tr>
-    </tbody>
+  <tbody>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+      <td><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+  </tbody>
   ...
-      <div>
-        <div class="buttons">
-          <input type="submit" id="contents-buttons-copy"
-                 name="contents.buttons.copy"
-                 class="submit-widget button-field" value="Copy" />
-          <input type="submit" id="contents-buttons-cut"
-                 name="contents.buttons.cut"
-                 class="submit-widget button-field" value="Cut" />
-          <input type="submit" id="contents-buttons-paste"
-                 name="contents.buttons.paste"
-                 class="submit-widget button-field" value="Paste" />
-          <input type="submit" id="contents-buttons-delete"
-                 name="contents.buttons.delete"
-                 class="submit-widget button-field" value="Delete" />
-          <input type="submit" id="contents-buttons-rename"
-                 name="contents.buttons.rename"
-                 class="submit-widget button-field" value="Rename" />
-        </div>
+    <div>
+      <div class="buttons">
+        <input type="submit" id="contents-buttons-copy"
+               name="contents.buttons.copy"
+               class="submit-widget button-field" value="Copy" />
+        <input type="submit" id="contents-buttons-cut"
+               name="contents.buttons.cut"
+               class="submit-widget button-field" value="Cut" />
+        <input type="submit" id="contents-buttons-paste"
+               name="contents.buttons.paste"
+               class="submit-widget button-field" value="Paste" />
+        <input type="submit" id="contents-buttons-delete"
+               name="contents.buttons.delete"
+               class="submit-widget button-field" value="Delete" />
+        <input type="submit" id="contents-buttons-rename"
+               name="contents.buttons.rename"
+               class="submit-widget button-field" value="Rename" />
       </div>
-    </form>
+    </div>
+  </form>
 
 
 Cut
@@ -525,48 +517,38 @@ container.
           <div class="summary">Items selected for cut</div>
         </div>
   ...
-    <table>
-      <thead>
-        <tr>
-          <th>X</th>
-          <th>Name</th>
-          <th>Created</th>
-          <th>Modified</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first" checked="checked" /></td>
-          <td>first</td>
-          <td>01/01/01 01:01</td>
-          <td>02/02/02 02:02</td>
-        </tr>
-        <tr>
-          <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
-          <td>fourth</td>
-          <td>01/01/01 01:01</td>
-          <td>02/02/02 02:02</td>
-        </tr>
-        <tr>
-          <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second" checked="checked" /></td>
-          <td>second</td>
-          <td>01/01/01 01:01</td>
-          <td>02/02/02 02:02</td>
-        </tr>
-        <tr>
-          <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
-          <td>third</td>
-          <td>01/01/01 01:01</td>
-          <td>02/02/02 02:02</td>
-        </tr>
-        <tr>
-          <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-          <td>zero</td>
-          <td>01/01/01 01:01</td>
-          <td>02/02/02 02:02</td>
-        </tr>
-      </tbody>
-    </table>
+  <tbody>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first" checked="checked" /></td>
+      <td><a href="http://127.0.0.1/container/first">first</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
+      <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second" checked="checked" /></td>
+      <td><a href="http://127.0.0.1/container/second">second</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
+      <td><a href="http://127.0.0.1/container/third">third</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+      <td><a href="http://127.0.0.1/container/zero">zero</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+  </tbody>
   ...
 
 Cut - Paste
@@ -587,36 +569,26 @@ And we can paste the selectded items to the second container:
           <div class="summary">Data successfully pasted</div>
         </div>
   ...
-  <table>
-    <thead>
-      <tr>
-        <th>X</th>
-        <th>Name</th>
-        <th>Created</th>
-        <th>Modified</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
-        <td>first</td>
-        <td>01/01/01 01:01</td>
-        <td>02/02/02 02:02</td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
-        <td>second</td>
-        <td>01/01/01 01:01</td>
-        <td>02/02/02 02:02</td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-        <td>zero</td>
-        <td>01/01/01 01:01</td>
-        <td>02/02/02 02:02</td>
-      </tr>
-    </tbody>
-  </table>
+  <tbody>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
+      <td><a href="http://127.0.0.1/secondContainer/first">first</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
+      <td><a href="http://127.0.0.1/secondContainer/second">second</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+      <td><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+  </tbody>
   ...
     <div>
       <div class="buttons">
@@ -647,36 +619,26 @@ gone:
         enctype="multipart/form-data" class="edit-form"
         name="contents" id="contents">
   ...
-  <table>
-    <thead>
-      <tr>
-        <th>X</th>
-        <th>Name</th>
-        <th>Created</th>
-        <th>Modified</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
-        <td>fourth</td>
-        <td>01/01/01 01:01</td>
-        <td>02/02/02 02:02</td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
-        <td>third</td>
-        <td>01/01/01 01:01</td>
-        <td>02/02/02 02:02</td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-        <td>zero</td>
-        <td>01/01/01 01:01</td>
-        <td>02/02/02 02:02</td>
-      </tr>
-    </tbody>
-  </table>
+  <tbody>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
+      <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
+      <td><a href="http://127.0.0.1/container/third">third</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+      <td><a href="http://127.0.0.1/container/zero">zero</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+  </tbody>
   ...
     <div>
       <div class="buttons">
@@ -714,28 +676,18 @@ items and click the delete button:
         enctype="multipart/form-data" class="edit-form"
         name="contents" id="contents">
   ...
-        <div class="status">
-          <div class="summary">Data successfully deleted</div>
-        </div>
+  <div class="status">
+    <div class="summary">Data successfully deleted</div>
+  </div>
   ...
-  <table>
-    <thead>
-      <tr>
-        <th>X</th>
-        <th>Name</th>
-        <th>Created</th>
-        <th>Modified</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-        <td>zero</td>
-        <td>01/01/01 01:01</td>
-        <td>02/02/02 02:02</td>
-      </tr>
-    </tbody>
-  </table>
+  <tbody>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+      <td><a href="http://127.0.0.1/container/zero">zero</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+  </tbody>
   ...
 
 Rename
@@ -758,36 +710,26 @@ do the renaming. Let's setup a table which we select items and click the
         enctype="multipart/form-data" class="edit-form"
         name="contents" id="contents">
   ...
-  <table>
-    <thead>
-      <tr>
-        <th>X</th>
-        <th>Name</th>
-        <th>Created</th>
-        <th>Modified</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first" checked="checked" /></td>
-        <td>first&nbsp;<input type="text" name="contents-renameColumn-1-Zmlyc3Q=-rename" value="first" /></td>
-        <td>01/01/01 01:01</td>
-        <td>02/02/02 02:02</td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second" checked="checked" /></td>
-        <td>second&nbsp;<input type="text" name="contents-renameColumn-1-c2Vjb25k-rename" value="second" /></td>
-        <td>01/01/01 01:01</td>
-        <td>02/02/02 02:02</td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-        <td>zero</td>
-        <td>01/01/01 01:01</td>
-        <td>02/02/02 02:02</td>
-      </tr>
-    </tbody>
-  </table>
+  <tbody>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first" checked="checked" /></td>
+      <td><a href="http://127.0.0.1/secondContainer/first">first</a>&nbsp;<input type="text" name="contents-renameColumn-1-Zmlyc3Q=-rename" value="first" /></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second" checked="checked" /></td>
+      <td><a href="http://127.0.0.1/secondContainer/second">second</a>&nbsp;<input type="text" name="contents-renameColumn-1-c2Vjb25k-rename" value="second" /></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+      <td><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+  </tbody>
   ...
 
 Now we rename the ``second`` item to ``fifth``:
@@ -804,45 +746,31 @@ Now we rename the ``second`` item to ``fifth``:
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         name="contents" id="contents">
-    <div class="viewspace">
-        <div class="required-info">
-           <span class="required">*</span>
-           &ndash; required
-        </div>
-        <div class="status">
-          <div class="summary">Could not rename all selected items</div>
-        </div>
-      <div>
-    <table>
-      <thead>
-        <tr>
-          <th>X</th>
-          <th>Name</th>
-          <th>Created</th>
-          <th>Modified</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fifth"  /></td>
-          <td>fifth</td>
-          <td>01/01/01 01:01</td>
-          <td>02/02/02 02:02</td>
-        </tr>
-        <tr>
-          <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first" checked="checked" /></td>
-          <td>first&nbsp;<input type="text" name="contents-renameColumn-1-Zmlyc3Q=-rename" value="first" />No new name given</td>
-          <td>01/01/01 01:01</td>
-          <td>02/02/02 02:02</td>
-        </tr>
-        <tr>
-          <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-          <td>zero</td>
-          <td>01/01/01 01:01</td>
-          <td>02/02/02 02:02</td>
-        </tr>
-      </tbody>
-    </table>
+  ...
+  <div class="status">
+    <div class="summary">Could not rename all selected items</div>
+  </div>
+  ...
+  <tbody>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fifth"  /></td>
+      <td><a href="http://127.0.0.1/secondContainer/fifth">fifth</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first" checked="checked" /></td>
+      <td><a href="http://127.0.0.1/secondContainer/first">first</a>&nbsp;<input type="text" name="contents-renameColumn-1-Zmlyc3Q=-rename" value="first" />No new name given</td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+      <td><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+  </tbody>
   ...
 
 If we try to rename one item to another items name we will get a duplication 
@@ -860,45 +788,31 @@ error. Let's test this:
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         name="contents" id="contents">
-    <div class="viewspace">
-      <div class="required-info">
-         <span class="required">*</span>
-         &ndash; required
-      </div>
-      <div class="status">
-        <div class="summary">Could not rename all selected items</div>
-      </div>
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>X</th>
-              <th>Name</th>
-              <th>Created</th>
-              <th>Modified</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fifth" checked="checked" /></td>
-              <td>fifth&nbsp;<input type="text" name="contents-renameColumn-1-ZmlmdGg=-rename" value="first" />Duplicated item name</td>
-              <td>01/01/01 01:01</td>
-              <td>02/02/02 02:02</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first" checked="checked" /></td>
-              <td>first&nbsp;<input type="text" name="contents-renameColumn-1-Zmlyc3Q=-rename" value="fifth" />Duplicated item name</td>
-              <td>01/01/01 01:01</td>
-              <td>02/02/02 02:02</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-              <td>zero</td>
-              <td>01/01/01 01:01</td>
-              <td>02/02/02 02:02</td>
-            </tr>
-          </tbody>
-        </table>
+  ...
+  <div class="status">
+    <div class="summary">Could not rename all selected items</div>
+  </div>
+  ...
+  <tbody>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fifth" checked="checked" /></td>
+      <td><a href="http://127.0.0.1/secondContainer/fifth">fifth</a>&nbsp;<input type="text" name="contents-renameColumn-1-ZmlmdGg=-rename" value="first" />Duplicated item name</td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first" checked="checked" /></td>
+      <td><a href="http://127.0.0.1/secondContainer/first">first</a>&nbsp;<input type="text" name="contents-renameColumn-1-Zmlyc3Q=-rename" value="fifth" />Duplicated item name</td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+      <td><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+  </tbody>
   ...
 
 As you can see everything goes right. We can check the containers which should
