@@ -52,7 +52,11 @@ setup (
     extras_require = dict(
         test = [
             'z3c.macro',
+            'z3c.layer.ready2go',
+            'z3c.pagelet',
             'z3c.table',
+            'z3c.etestbrowser',
+            'zope.app.securitypolicy',
             'zope.app.pagetemplate',
             'zope.app.testing',
             'zope.component',

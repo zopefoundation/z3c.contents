@@ -16,6 +16,15 @@ $Id:$
 """
 __docformat__ = "reStructuredText"
 
+from zope.publisher.interfaces.browser import IBrowserRequest
+
+import z3c.layer.ready2go
+
+class IContentsTestBrowserLayer(z3c.layer.ready2go.IReady2GoBrowserLayer):
+        """test layer."""
+
+class IContentsTestBrowserSkin(IContentsTestBrowserLayer):
+    """The browser skin."""
 
 class Content(object):
     """Sample content which is pickable for copy test."""

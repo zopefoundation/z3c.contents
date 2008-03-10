@@ -1,0 +1,12 @@
+z3c.contents
+============
+
+  >>> from z3c.etestbrowser.testing import ExtendedTestBrowser
+  >>> import zope.component
+  >>> browser = ExtendedTestBrowser()
+  >>> browser.addHeader('Authorization', 'Basic mgr:mgrpw')
+  >>> browser.handleErrors = False
+  >>> URL = 'http://localhost/++skin++ContentsTesting%s'
+
+  >>> browser.open(URL % '/')
+  >>> #print browser.contents
