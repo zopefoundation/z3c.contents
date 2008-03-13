@@ -70,3 +70,4 @@ class RenameColumn(column.NameColumn):
                 itemLink, key, newName, msg)
         else:
             return itemLink
+

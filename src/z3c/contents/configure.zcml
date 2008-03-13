@@ -38,6 +38,33 @@
       provides="z3c.table.interfaces.IColumn"
       />
 
+  <!-- include also sorting column headers for some columns
+       leaving out CheckBoxColumn -->
+  <adapter
+      factory="z3c.table.column.SortingColumnHeader"
+      for="zope.app.container.interfaces.IContainer
+           zope.interface.Interface
+           z3c.contents.column.RenameColumn"
+      provides="z3c.table.interfaces.IColumnHeader"
+      />
+
+  <adapter
+      factory="z3c.table.column.SortingColumnHeader"
+      for="zope.app.container.interfaces.IContainer
+           zope.interface.Interface
+           z3c.table.column.CreatedColumn"
+      provides="z3c.table.interfaces.IColumnHeader"
+      />
+
+  <adapter
+      factory="z3c.table.column.SortingColumnHeader"
+      for="zope.app.container.interfaces.IContainer
+           zope.interface.Interface
+           z3c.table.column.ModifiedColumn"
+      provides="z3c.table.interfaces.IColumnHeader"
+      />
+
+
   <include file="browser.zcml" />
 
 </configure>

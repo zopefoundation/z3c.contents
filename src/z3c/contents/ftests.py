@@ -1,5 +1,6 @@
 import os
 import doctest
+import lxml
 import transaction
 
 from zope.app.testing import functional
@@ -10,9 +11,20 @@ ftesting_zcml = os.path.join(os.path.dirname(__file__),
 TestLayer = functional.ZCMLLayer(
                        ftesting_zcml, __name__, 'TestLayer')
 
+def printElement(browser, xpath, multiple=False, serialize=True):
+    """Print method to use with z3c.etestbrowser"""
+    result = [serialize and lxml.etree.tounicode(elem) or elem
+              for elem in browser.etree.xpath(xpath)]
+    if not multiple:
+        print result[0]
+        return
+    for elem in result:
+        print elem
+
 def setUp(test):
     functional.FunctionalTestSetup().setUp()
     test.globs['getRootFolder'] = functional.getRootFolder
+    test.globs['printElement'] = printElement
 
 def tearDown(test):
     functional.FunctionalTestSetup().tearDown()

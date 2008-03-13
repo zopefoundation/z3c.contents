@@ -1,5 +1,15 @@
-z3c.contents
-============
+========
+Contents
+========
+
+The goal of this package is to offer a modular replacement for the default 
+contents.html page used in Zope3.
+
+Initially
+=========
+
+In ftesting.zcml we have set up a test layer to use for the following tests and
+have also registered a Contents view as 'index' for the root folder:
 
   >>> from z3c.etestbrowser.testing import ExtendedTestBrowser
   >>> import zope.component
@@ -9,4 +19,18 @@ z3c.contents
   >>> URL = 'http://localhost/++skin++ContentsTesting%s'
 
   >>> browser.open(URL % '/')
-  >>> #print browser.contents
+  >>> printElement(browser, "//table/thead/tr/th", multiple=True)
+  <th>X</th>
+  <th><a
+    href="?contents-sortOn=contents-renameColumn-1&amp;contents-sortOrder=ascending"
+    title="Sort">Name</a></th>
+  <th><a
+    href="?contents-sortOn=contents-createdColumn-2&amp;contents-sortOrder=ascending"
+    title="Sort">Created</a></th>
+  <th><a
+    href="?contents-sortOn=contents-modifiedColumn-3&amp;contents-sortOrder=ascending"
+    title="Sort">Modified</a></th>
+
+Sample data set up
+==================
+
