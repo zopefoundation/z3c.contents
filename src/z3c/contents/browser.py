@@ -34,7 +34,7 @@ from zope.traversing import api
 
 from zope.app.container.interfaces import DuplicateIDError
 
-from z3c.form import button
+from z3c.form import button, field
 from z3c.formui import form
 from z3c.table import table
 from z3c.template.template import getPageTemplate
@@ -59,6 +59,34 @@ def safeGetAttr(obj, attr, default):
         return getattr(obj, attr, default)
     except Unauthorized:
         return default
+
+
+class ContentsSearch(object):
+    """An adapter for container context to satisfy search form requirements"""
+
+    zope.interface.implements(interfaces.IContentsSearch)
+    zope.component.adapts(zope.interface.Interface)
+
+    def __init__(self, context):
+        self.context = context
+
+    def get_searchterm(self):
+        return u''
+
+    def set_searchterm(self, value):
+        pass
+
+    searchterm = property(get_searchterm, set_searchterm)
+
+class ContentsSearchForm(form.Form):
+
+    template = getPageTemplate()
+    fields = field.Fields(interfaces.IContentsSearch)
+    prefix = 'search'
+
+    @button.buttonAndHandler(_('Search'), name='search')
+    def handleSearch(self, action):
+        pass
 
 
 # conditions
@@ -88,6 +116,9 @@ class ContentsPage(table.Table, form.Form):
     zope.interface.implements(interfaces.IContentsPage)
 
     template = getPageTemplate()
+
+    # search sub-form
+    search = None
 
     # internal defaults
     selectedItems = []
@@ -131,6 +162,10 @@ class ContentsPage(table.Table, form.Form):
         super(ContentsPage, self).update()
         # second find out if we support paste
         self.clipboard = queryPrincipalClipboard(self.request)
+
+        self.search = ContentsSearchForm(self.context, self.request)
+        self.search.update()
+
         self.setupCopyPasteMove()
         self.updateWidgets()
         self.updateActions()
@@ -371,3 +406,4 @@ class ContentsPage(table.Table, form.Form):
             renameCol = self.columnByName.get('renameColumn')
             if renameCol:
                 renameCol.errorMessages = errorMessages
+

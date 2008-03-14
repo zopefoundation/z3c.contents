@@ -44,7 +44,8 @@ And we need to setup the form defaults first:
   >>> from z3c.form.testing import setupFormDefaults
   >>> setupFormDefaults()
 
-And we need to configure our contents.pt template for the ContentsPage:
+And we need to configure our contents.pt template for the ContentsPage (we
+also configure the template for the search sub form here too)
 
   >>> import os
   >>> import sys
@@ -53,6 +54,8 @@ And we need to configure our contents.pt template for the ContentsPage:
   >>> context = xmlconfig.file('meta.zcml', z3c.template)
   >>> contentsTemplate = os.path.join(os.path.dirname(z3c.contents.__file__),
   ...     'contents.pt')
+  >>> searchTemplate = os.path.join(os.path.dirname(z3c.contents.__file__),
+  ...     'search.pt')
   >>> context = xmlconfig.string("""
   ... <configure
   ...     xmlns:z3c="http://namespaces.zope.org/z3c">
@@ -60,8 +63,12 @@ And we need to configure our contents.pt template for the ContentsPage:
   ...       for="z3c.contents.browser.ContentsPage"
   ...       template="%s"
   ...       />
+  ...   <z3c:template
+  ...       for="z3c.contents.browser.ContentsSearchForm"
+  ...       template="%s"
+  ...       />
   ... </configure>
-  ... """ % contentsTemplate, context=context)
+  ... """ % (contentsTemplate, searchTemplate), context=context)
 
 
 And load the formui confguration, which will make sure that all macros get 
@@ -110,6 +117,7 @@ Now we can create a ContentsPage:
            &ndash; required
         </div>
       <div>
+  ...
     </div>
     </div>
     <div>
@@ -174,6 +182,7 @@ Now let's update and render the contents page again:
            &ndash; required
         </div>
       <div>
+  ...
         <table>
           <thead>
             <tr>
@@ -361,6 +370,7 @@ no buttons:
            &ndash; required
         </div>
       <div>
+  ...
         <table>
           <thead>
             <tr>

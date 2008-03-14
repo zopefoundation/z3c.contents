@@ -1,5 +1,9 @@
 <div metal:use-macro="macro:form">
   <div metal:fill-slot="main">
+    <fieldset>
+      <legend>Search</legend>
+        <tal:block replace="structure view/search/render">search form</tal:block>
+    </fieldset>
     <tal:block replace="structure view/renderTable">table</tal:block>
     <tal:block define="batch view/renderBatch">
     <div class="batch" tal:condition="batch">

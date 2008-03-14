@@ -31,6 +31,8 @@ have also registered a Contents view as 'index' for the root folder:
     href="?contents-sortOn=contents-modifiedColumn-3&amp;contents-sortOrder=ascending"
     title="Sort">Modified</a></th>
 
+  >>> #print browser.contents
+
 Sample data set up
 ==================
 
