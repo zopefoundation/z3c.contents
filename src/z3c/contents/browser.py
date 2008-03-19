@@ -25,13 +25,14 @@ from zope.copypastemove import ItemNotFoundError
 from zope.copypastemove.interfaces import IPrincipalClipboard
 from zope.copypastemove.interfaces import IObjectCopier, IObjectMover
 from zope.copypastemove.interfaces import IContainerItemRenamer
-from zope.app.container.interfaces import IContainerNamesContainer
 from zope.exceptions import DuplicationError
 from zope.exceptions.interfaces import UserError
+from zope.security.proxy import removeSecurityProxy
 from zope.security.interfaces import Unauthorized
 from zope.traversing.interfaces import TraversalError
 from zope.traversing import api
 
+from zope.app.container.interfaces import IContainerNamesContainer
 from zope.app.container.interfaces import DuplicateIDError
 
 from z3c.form import button
@@ -346,7 +347,8 @@ class ContentsPage(table.Table, form.Form):
                     newName = renameCol.getRenameValue(item)
                     if newName is not None and oldName != newName:
                         try:
-                            renamer = IContainerItemRenamer(self.context)
+                            container = removeSecurityProxy(self.context)
+                            renamer = IContainerItemRenamer(container)
                             renamer.renameItem(oldName, newName)
                             changed = True
                         except DuplicationError:
