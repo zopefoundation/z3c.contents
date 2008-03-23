@@ -42,10 +42,17 @@
       factory="z3c.contents.browser.ContentsSearch"
       />
 
+  <adapter
+     provides="z3c.contents.interfaces.ISearch"
+     for="zope.app.container.interfaces.IReadContainer"
+     permission="zope.Public"
+     factory="z3c.contents.search.SearchForContainer"
+     />
+
   <!-- include also sorting column headers for some columns
        leaving out CheckBoxColumn -->
   <adapter
-      factory="z3c.table.header.SortingColumnHeader"
+      factory="z3c.contents.header.ContentsColumnHeader"
       for="zope.app.container.interfaces.IContainer
            zope.interface.Interface
            z3c.contents.interfaces.IContentsPage
@@ -54,7 +61,7 @@
       />
 
   <adapter
-      factory="z3c.table.header.SortingColumnHeader"
+      factory="z3c.contents.header.ContentsColumnHeader"
       for="zope.app.container.interfaces.IContainer
            zope.interface.Interface
            z3c.contents.interfaces.IContentsPage
@@ -63,7 +70,7 @@
       />
 
   <adapter
-      factory="z3c.table.header.SortingColumnHeader"
+      factory="z3c.contents.header.ContentsColumnHeader"
       for="zope.app.container.interfaces.IContainer
            zope.interface.Interface
            z3c.contents.interfaces.IContentsPage

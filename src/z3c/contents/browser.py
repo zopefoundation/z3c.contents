@@ -31,7 +31,7 @@ from zope.exceptions.interfaces import UserError
 from zope.security.interfaces import Unauthorized
 from zope.traversing.interfaces import TraversalError
 from zope.traversing import api
-
+from zope.app.container.find import SimpleIdFindFilter
 from zope.app.container.interfaces import DuplicateIDError
 
 from z3c.form import button, field
@@ -40,6 +40,7 @@ from z3c.table import table
 from z3c.template.template import getPageTemplate
 
 from z3c.contents import interfaces
+from z3c.contents.search import SimpleAttributeFindFilter
 
 _ = zope.i18nmessageid.MessageFactory('z3c')
 
@@ -62,7 +63,9 @@ def safeGetAttr(obj, attr, default):
 
 
 class ContentsSearch(object):
-    """An adapter for container context to satisfy search form requirements"""
+    """An adapter for container context to satisfy search form requirements
+    
+    """
 
     zope.interface.implements(interfaces.IContentsSearch)
     zope.component.adapts(zope.interface.Interface)
@@ -83,10 +86,15 @@ class ContentsSearchForm(form.Form):
     template = getPageTemplate()
     fields = field.Fields(interfaces.IContentsSearch)
     prefix = 'search'
+    table = None
 
     @button.buttonAndHandler(_('Search'), name='search')
     def handleSearch(self, action):
-        pass
+        data, errors = self.extractData()
+        if errors:
+            self.status = u'Some error message'
+            return
+        self.table.searchterm = data.get('searchterm', '')
 
 
 # conditions
@@ -130,6 +138,9 @@ class ContentsPage(table.Table, form.Form):
     supportsPaste = False
     supportsRename = False
 
+    # sort attributes
+    sortOn = 1 # initial sort on name column
+
     # customize this part
     allowCut = True
     allowCopy = True
@@ -138,6 +149,7 @@ class ContentsPage(table.Table, form.Form):
     allowRename = True
 
     prefix = 'contents'
+    searchterm = ''
 
     # error messages
     cutNoItemsMessage = _('No items selected for cut')
@@ -158,13 +170,15 @@ class ContentsPage(table.Table, form.Form):
     renameItemNotFoundMessage = _('Item not found')
 
     def update(self):
+
+        self.search = ContentsSearchForm(self.context, self.request)
+        self.search.table = self
+        self.search.update()
+
         # first setup columns and process the items as selected if any
         super(ContentsPage, self).update()
         # second find out if we support paste
         self.clipboard = queryPrincipalClipboard(self.request)
-
-        self.search = ContentsSearchForm(self.context, self.request)
-        self.search.update()
 
         self.setupCopyPasteMove()
         self.updateWidgets()
@@ -194,6 +208,28 @@ class ContentsPage(table.Table, form.Form):
     def render(self):
         """Render the template."""
         return self.template()
+
+    @property
+    def values(self):
+        # not searching
+        if not self.searchterm:
+            return self.context.values()
+
+        # no search adapter for the context
+        try:
+            search = interfaces.ISearch(self.context)
+        except TypeError:
+            return self.context.values()
+
+        # perform the search
+        searchterms = self.searchterm.split(' ')
+
+        # possible enhancement would be to look up these filters as adapters to
+        # the container!
+        result = search.search(id_filters=[SimpleIdFindFilter(searchterms)],
+                            object_filters=[SimpleAttributeFindFilter(searchterms)])
+        return result
+
 
     @property
     def hasContent(self):

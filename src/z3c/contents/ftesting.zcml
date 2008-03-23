@@ -81,4 +81,18 @@
       permission="zope.ManageContent"
       />
 
+  <class class="z3c.contents.testing.Content">
+    <implements
+      interface="zope.annotation.interfaces.IAttributeAnnotatable"
+      />
+    <allow
+      interface="z3c.contents.testing.IContent"
+      />
+    <require
+      permission="zope.ManageContent"
+      set_schema="z3c.contents.testing.IContent"
+      />
+  </class>
+
+
 </configure>

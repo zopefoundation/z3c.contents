@@ -16,6 +16,7 @@ $Id:$
 """
 __docformat__ = "reStructuredText"
 
+import zope.interface
 from zope.publisher.interfaces.browser import IBrowserRequest
 
 import z3c.layer.ready2go
@@ -26,8 +27,14 @@ class IContentsTestBrowserLayer(z3c.layer.ready2go.IReady2GoBrowserLayer):
 class IContentsTestBrowserSkin(IContentsTestBrowserLayer):
     """The browser skin."""
 
+class IContent(zope.interface.Interface):
+
+    title = zope.schema.TextLine(title=u'Title')
+    number = zope.schema.Int(title=u'Number')
+
 class Content(object):
     """Sample content which is pickable for copy test."""
+    zope.interface.implements(IContent)
     def __init__(self, title, number):
         self.title = title
         self.number = number
