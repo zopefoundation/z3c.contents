@@ -17,6 +17,7 @@ $Id$
 __docformat__ = "reStructuredText"
 
 import zope.interface
+import zope.component
 from zope.app.container.interfaces import (IObjectFindFilter,
                                            IReadContainer)
 from zope.security.proxy import removeSecurityProxy

@@ -856,7 +856,7 @@ The default search adapter matches search terms to the objects id in the
 container or to any possible string attribute.
 
   >>> searchRequest = TestRequest(form={'search.buttons.search': 'Search',
-  ...                       'search.widgets.searchterm': u'First zero'})
+  ...                       'search.widgets.searchterm': u'1 zero'})
   >>> alsoProvides(searchRequest, IDivFormLayer)
   >>> searchPage = browser.ContentsPage(secondContainer, searchRequest)
   >>> searchPage.update()
