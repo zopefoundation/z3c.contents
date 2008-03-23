@@ -908,7 +908,7 @@ sort the table by that column.
     <tr>
       <th>X</th>
       <th><a
-      href="?contents-sortOn=contents-renameColumn-1&contents-sortOrder=ascending"
+      href="?contents-sortOn=contents-renameColumn-1&contents-sortOrder=descending"
       title="Sort">Name</a></th>
       <th>Created</th>
       <th>Modified</th>
@@ -933,7 +933,7 @@ included in the query so as to maintain the search across views.
     <tr>
       <th>X</th>
       <th><a
-      href="?contents-sortOn=contents-renameColumn-1&contents-sortOrder=ascending&search.widgets.searchterm=First+zero"
+      href="?contents-sortOn=contents-renameColumn-1&contents-sortOrder=descending&search.widgets.searchterm=First+zero"
       title="Sort">Name</a></th>
       <th>Created</th>
       <th>Modified</th>

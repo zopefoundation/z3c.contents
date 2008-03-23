@@ -22,5 +22,5 @@ from z3c.table.header import SortingColumnHeader
 class ContentsColumnHeader(SortingColumnHeader):
     """Sorting column header."""
 
-    request_args = ['search.widgets.searchterm']
+    _request_args = ['search.widgets.searchterm']
 
