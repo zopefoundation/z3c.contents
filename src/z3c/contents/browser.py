@@ -40,7 +40,7 @@ from z3c.table import table
 from z3c.template.template import getPageTemplate
 
 from z3c.contents import interfaces
-from z3c.contents.search import SimpleAttributeFindFilter
+from z3c.contents.search import SearchableTextFindFilter
 
 _ = zope.i18nmessageid.MessageFactory('z3c')
 
@@ -211,6 +211,7 @@ class ContentsPage(table.Table, form.Form):
 
     @property
     def values(self):
+
         # not searching
         if not self.searchterm:
             return self.context.values()
@@ -225,10 +226,9 @@ class ContentsPage(table.Table, form.Form):
         searchterms = self.searchterm.split(' ')
 
         # possible enhancement would be to look up these filters as adapters to
-        # the container!
-        result = search.search(id_filters=[SimpleIdFindFilter(searchterms)],
-                            object_filters=[SimpleAttributeFindFilter(searchterms)])
-        return result
+        # the container! Maybe we can use catalogs here?
+        return search.search(id_filters=[SimpleIdFindFilter(searchterms)],
+                            object_filters=[SearchableTextFindFilter(searchterms)])
 
 
     @property
@@ -396,13 +396,18 @@ class ContentsPage(table.Table, form.Form):
             return
         try:
             for item in self.selectedItems:
-                del self.context[api.getName(item)]
+                self.executeDelete(item)
         except KeyError:
             self.status = self.deleteErrorMessage
             transaction.doom()
         # update the table rows before we start with rendering
         self.updateAfterActionExecution()
         self.status = self.deleteSucsessMessage
+
+    def executeDelete(self, item):
+        """Do the actual item deletion
+        """
+        del self.context[api.getName(item)]
 
     @button.buttonAndHandler(_('Rename'), name='rename', condition=canRename)
     def handlerRename(self, action):

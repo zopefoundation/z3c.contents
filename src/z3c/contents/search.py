@@ -12,7 +12,7 @@
 #
 ##############################################################################
 """
-$Id:$
+$Id$
 """
 __docformat__ = "reStructuredText"
 
@@ -20,14 +20,14 @@ import zope.interface
 from zope.app.container.interfaces import (IObjectFindFilter,
                                            IReadContainer)
 from zope.security.proxy import removeSecurityProxy
+from zope.index.text.interfaces import ISearchableText
 
 from z3c.contents.interfaces import ISearch
 
 class SearchForContainer(object):
 
     zope.interface.implements(ISearch)
-
-    __used_for__ = IReadContainer
+    zope.component.adapts(IReadContainer)
 
     def __init__(self, context):
         self._context = context
@@ -67,26 +67,27 @@ def _search_helper(id, object, container, id_filters, object_filters, result):
         _search_helper(id, object, container, id_filters, object_filters, result)
 
 
-class SimpleAttributeFindFilter(object):
-    """Filter objects on text or integer attributes"""
+class SearchableTextFindFilter(object):
+    """Filter objects on the ISearchableText adapters to the object
+    
+    """
+
     zope.interface.implements(IObjectFindFilter)
     
     def __init__(self, terms):
         self.terms = terms
     
     def matches(self, object):
-        """Check if one of the search terms is in any text or integer field of
-        this object
-
+        """Check if one of the search terms is found in the searchable text
+        interface
         """
-        # surely a better way to get to the attributes than is done here?
-        object = removeSecurityProxy(object)
 
-        for key in [k for k in dir(object) if not k.startswith('_')]:
-            value = str(getattr(object, key)).lower()
-            for term in self.terms:
-                term = term.lower()
-                if term in value:
-                    return True
+        adapter = zope.component.queryAdapter(object, ISearchableText)
+        if not adapter:
+            return False
+        searchable = adapter.getSearchableText().lower()
+        for term in [t.lower() for t in self.terms]:
+            if term in searchable:
+                return True
         return False
 

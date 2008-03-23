@@ -843,8 +843,14 @@ Add an IFind adapter for the search:
 
   >>> from z3c.contents.interfaces import ISearch
   >>> from z3c.contents.search import SearchForContainer
-  >>> zope.component.provideAdapter(SearchForContainer,
-  ...     (IContainer, ), provides=ISearch)
+  >>> zope.component.provideAdapter(SearchForContainer)
+
+And also register ISearchableText adapter for the contained objects, the default
+filters for searching include searching the keys (content __name__) and using
+an ISearchableText adapter for the contained objects.
+
+  >>> from z3c.contents.testing import SearchableTextForContent
+  >>> zope.component.provideAdapter(SearchableTextForContent)
 
 The default search adapter matches search terms to the objects id in the
 container or to any possible string attribute.
@@ -880,11 +886,6 @@ Headers
 
 We have adapters to the columns that support inclusion of links in the headers
 to sort the columns.
-      for="zope.app.container.interfaces.IContainer
-           zope.interface.Interface
-           z3c.contents.interfaces.IContentsPage
-           z3c.contents.column.RenameColumn"
-      provides="z3c.table.interfaces.IColumnHeader"
 
   >>> from z3c.contents.header import ContentsColumnHeader
   >>> from z3c.table.interfaces import IColumnHeader
