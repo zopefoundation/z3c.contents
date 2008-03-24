@@ -54,3 +54,8 @@ class ISearch(zope.interface.Interface):
         This container itself is not included.
         """
 
+class IOrderableColumn(zope.interface.Interface):
+    """
+    A column that may be ordered
+
+    """
