@@ -7,7 +7,7 @@
       factory="z3c.table.column.CheckBoxColumn"
       for="zope.app.container.interfaces.IContainer
            zope.interface.Interface
-           z3c.contents.interfaces.IContentsPage"
+           z3c.contents.browser.ContentsPage"
       provides="z3c.table.interfaces.IColumn"
       />
 
@@ -16,7 +16,7 @@
       factory="z3c.contents.column.RenameColumn"
       for="zope.app.container.interfaces.IContainer
            zope.interface.Interface
-           z3c.contents.interfaces.IContentsPage"
+           z3c.contents.browser.ContentsPage"
       provides="z3c.table.interfaces.IColumn"
       />
 
@@ -25,7 +25,7 @@
       factory="z3c.table.column.CreatedColumn"
       for="zope.app.container.interfaces.IContainer
            zope.interface.Interface
-           z3c.contents.interfaces.IContentsPage"
+           z3c.contents.browser.ContentsPage"
       provides="z3c.table.interfaces.IColumn"
       />
 
@@ -34,7 +34,7 @@
       factory="z3c.table.column.ModifiedColumn"
       for="zope.app.container.interfaces.IContainer
            zope.interface.Interface
-           z3c.contents.interfaces.IContentsPage"
+           z3c.contents.browser.ContentsPage"
       provides="z3c.table.interfaces.IColumn"
       />
 
