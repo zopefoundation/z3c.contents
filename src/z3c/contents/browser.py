@@ -373,3 +373,16 @@ class ContentsPage(table.Table, form.Form):
             renameCol = self.columnByName.get('renameColumn')
             if renameCol:
                 renameCol.errorMessages = errorMessages
+
+
+class Contents(ContentsPage):
+    """ContentsPage with useful defaults."""
+
+    # contents defaults
+    cssClasses = {'table': 'contents'}
+    cssClassEven = u'even'
+    cssClassOdd = u'odd'
+    cssClassSelected = u'selected'
+    
+    batchSize = 25
+    startBatchingAt = 25

@@ -10,4 +10,10 @@
       layer="zope.publisher.interfaces.browser.IBrowserRequest"
       />
 
+  <z3c:template
+      template="contents.pt"
+      for=".browser.Contents"
+      layer="zope.publisher.interfaces.browser.IBrowserRequest"
+      />
+
 </configure>

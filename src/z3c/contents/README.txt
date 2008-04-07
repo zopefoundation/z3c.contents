@@ -57,7 +57,7 @@ And we need to configure our contents.pt template for the ContentsPage:
   ... <configure
   ...     xmlns:z3c="http://namespaces.zope.org/z3c">
   ...   <z3c:template
-  ...       for="z3c.contents.browser.ContentsPage"
+  ...       for="z3c.contents.interfaces.IContentsPage"
   ...       template="%s"
   ...       />
   ... </configure>
@@ -832,3 +832,75 @@ Batching
 --------
 
 TODO: add tests for batching
+
+
+Contents
+--------
+
+There is a ContentsPage with useful defaults. This contents page provides 
+a CSS class called ``contents`` for the table tag and uses ``even`` and ``odd`` 
+row CSS class markers. The default batch size is set to ``25``:
+
+  >>> request = TestRequest()
+  >>> alsoProvides(request, IDivFormLayer)
+  >>> contents = browser.Contents(secondContainer, request)
+  >>> contents.update()
+  >>> print contents.render()
+  <form action="http://127.0.0.1" method="post"
+        enctype="multipart/form-data" class="edit-form"
+        name="contents" id="contents">
+    <div class="viewspace">
+        <div class="required-info">
+           <span class="required">*</span>
+           &ndash; required
+        </div>
+      <div>
+      <table class="contents">
+    <thead>
+      <tr>
+        <th>X</th>
+        <th>Name</th>
+        <th>Created</th>
+        <th>Modified</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="even">
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fifth"  /></td>
+        <td><a href="http://127.0.0.1/secondContainer/fifth">fifth</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+      <tr class="odd">
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
+        <td><a href="http://127.0.0.1/secondContainer/first">first</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+      <tr class="even">
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+        <td><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+    </tbody>
+  </table>
+    </div>
+    </div>
+    <div>
+      <div class="buttons">
+        <input type="submit" id="contents-buttons-copy"
+         name="contents.buttons.copy"
+         class="submit-widget button-field" value="Copy" />
+        <input type="submit" id="contents-buttons-cut"
+         name="contents.buttons.cut"
+         class="submit-widget button-field" value="Cut" />
+        <input type="submit" id="contents-buttons-delete"
+         name="contents.buttons.delete"
+         class="submit-widget button-field" value="Delete" />
+        <input type="submit" id="contents-buttons-rename"
+         name="contents.buttons.rename"
+         class="submit-widget button-field" value="Rename" />
+      </div>
+    </div>
+  </form>
