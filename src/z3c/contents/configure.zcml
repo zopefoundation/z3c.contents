@@ -39,15 +39,12 @@
       />
 
   <adapter
-      factory="z3c.contents.browser.ContentsSearch"
+      factory="z3c.contents.search.ContentsSearch"
       />
 
   <adapter
-     provides="z3c.contents.interfaces.ISearch"
-     for="zope.app.container.interfaces.IReadContainer"
-     permission="zope.Public"
-     factory="z3c.contents.search.SearchForContainer"
-     />
+      factory="z3c.contents.search.SearchForContainer"
+      />
 
   <!-- include also sorting column headers for some columns
        leaving out CheckBoxColumn -->

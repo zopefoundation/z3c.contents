@@ -63,25 +63,6 @@ def safeGetAttr(obj, attr, default):
         return default
 
 
-class ContentsSearch(object):
-    """An adapter for container context to satisfy search form requirements
-    
-    """
-
-    zope.interface.implements(interfaces.IContentsSearch)
-    zope.component.adapts(zope.interface.Interface)
-
-    def __init__(self, context):
-        self.context = context
-
-    def get_searchterm(self):
-        return u''
-
-    def set_searchterm(self, value):
-        pass
-
-    searchterm = property(get_searchterm, set_searchterm)
-
 class ContentsSearchForm(form.Form):
 
     template = getPageTemplate()
@@ -127,7 +108,7 @@ class ContentsPage(table.Table, form.Form):
     template = getPageTemplate()
 
     # search sub-form
-    search = None
+    searchForm = None
 
     # internal defaults
     selectedItems = []
@@ -171,17 +152,18 @@ class ContentsPage(table.Table, form.Form):
     renameItemNotFoundMessage = _('Item not found')
 
     def update(self):
+        # first setup and update search form
+        self.searchForm = ContentsSearchForm(self.context, self.request)
+        self.searchForm.table = self
+        self.searchForm.update()
 
-        self.search = ContentsSearchForm(self.context, self.request)
-        self.search.table = self
-        self.search.update()
-
-        # first setup columns and process the items as selected if any
+        # second setup columns and process the items as selected if any
         super(ContentsPage, self).update()
-        # second find out if we support paste
+        # third find out if we support paste
         self.clipboard = queryPrincipalClipboard(self.request)
-
         self.setupCopyPasteMove()
+
+        # fourth setup form part
         self.updateWidgets()
         self.updateActions()
         self.actions.execute()
@@ -229,8 +211,7 @@ class ContentsPage(table.Table, form.Form):
         # possible enhancement would be to look up these filters as adapters to
         # the container! Maybe we can use catalogs here?
         return search.search(id_filters=[SimpleIdFindFilter(searchterms)],
-                            object_filters=[SearchableTextFindFilter(searchterms)])
-
+            object_filters=[SearchableTextFindFilter(searchterms)])
 
     @property
     def hasContent(self):

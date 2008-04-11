@@ -34,8 +34,8 @@ from zope.app.container.interfaces import IContained
 from zope.app.testing import setup
 
 from z3c.macro import tales
-import z3c.table.testing 
-from z3c.contents import browser
+import z3c.table.testing
+import z3c.contents.search
 
 
 class PrincipalAnnotations(dict):
@@ -75,7 +75,7 @@ def setUp(test):
     zope.component.provideAdapter(z3c.table.testing.DublinCoreAdapterStub)
 
     # contents search adapter
-    zope.component.provideAdapter(browser.ContentsSearch)
+    zope.component.provideAdapter(z3c.contents.search.ContentsSearch)
 
 
 def tearDown(test):

@@ -44,8 +44,8 @@ And we need to setup the form defaults first:
   >>> from z3c.form.testing import setupFormDefaults
   >>> setupFormDefaults()
 
-And we need to configure our contents.pt template for the ContentsPage (we
-also configure the template for the search sub form here too)
+And we need to configure our contents.pt template for the ContentsPage. We
+also configure the template for the search sub form here too.
 
   >>> import os
   >>> import sys

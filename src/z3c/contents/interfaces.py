@@ -25,8 +25,8 @@ _ = zope.i18nmessageid.MessageFactory('z3c')
 
 
 class IContentsPage(interfaces.ITable):
-    """Container management page
-    """
+    """Container management page."""
+
 
 class IContentsSearch(zope.interface.Interface):
     """We would like to provide a search field for searching within the
@@ -36,7 +36,10 @@ class IContentsSearch(zope.interface.Interface):
     columns.
     """
 
-    searchterm = zope.schema.TextLine(title=_(u'Search'))
+    searchterm = zope.schema.TextLine(
+        title=_(u'Search'),
+        description=_('Search term'),
+        default=u'')
 
 
 class ISearch(zope.interface.Interface):
@@ -54,8 +57,6 @@ class ISearch(zope.interface.Interface):
         This container itself is not included.
         """
 
-class IOrderableColumn(zope.interface.Interface):
-    """
-    A column that may be ordered
 
-    """
+class IOrderableColumn(zope.interface.Interface):
+    """A column that may be ordered."""

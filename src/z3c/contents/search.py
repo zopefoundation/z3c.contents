@@ -18,32 +18,49 @@ __docformat__ = "reStructuredText"
 
 import zope.interface
 import zope.component
-from zope.app.container.interfaces import (IObjectFindFilter,
-                                           IReadContainer)
+from zope.app.container.interfaces import IObjectFindFilter
+from zope.app.container.interfaces import IReadContainer
 from zope.security.proxy import removeSecurityProxy
 from zope.index.text.interfaces import ISearchableText
 
-from z3c.contents.interfaces import ISearch
+from z3c.contents import interfaces
+
 
 class SearchForContainer(object):
 
-    zope.interface.implements(ISearch)
+    zope.interface.implements(interfaces.ISearch)
     zope.component.adapts(IReadContainer)
 
     def __init__(self, context):
-        self._context = context
+        self.context = context
 
     def search(self, id_filters=None, object_filters=None):
         'See ISearch'
         id_filters = id_filters or []
         object_filters = object_filters or []
         result = []
-        container = self._context
-        for id, object in container.items():
-            _search_helper(id, object, container,
-                         id_filters, object_filters,
-                         result)
+        for id, object in self.context.items():
+            _search_helper(id, object, self.context, id_filters, object_filters,
+                result)
         return result
+
+
+class ContentsSearch(object):
+    """An adapter for container to satisfy search form requirements."""
+
+    zope.interface.implements(interfaces.IContentsSearch)
+    zope.component.adapts(zope.interface.Interface)
+
+    def __init__(self, context):
+        self.context = context
+
+    @apply
+    def searchterm():
+        def get(self):
+            return u''
+        def set(self, value):
+            pass
+        return property(get, set)
 
 
 def _search_helper(id, object, container, id_filters, object_filters, result):
@@ -69,9 +86,7 @@ def _search_helper(id, object, container, id_filters, object_filters, result):
 
 
 class SearchableTextFindFilter(object):
-    """Filter objects on the ISearchableText adapters to the object
-    
-    """
+    """Filter objects on the ISearchableText adapters to the object."""
 
     zope.interface.implements(IObjectFindFilter)
     
@@ -91,4 +106,3 @@ class SearchableTextFindFilter(object):
             if term in searchable:
                 return True
         return False
-
