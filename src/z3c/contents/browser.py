@@ -31,16 +31,17 @@ from zope.security.proxy import removeSecurityProxy
 from zope.security.interfaces import Unauthorized
 from zope.traversing.interfaces import TraversalError
 from zope.traversing import api
-
+from zope.app.container.find import SimpleIdFindFilter
 from zope.app.container.interfaces import IContainerNamesContainer
 from zope.app.container.interfaces import DuplicateIDError
 
-from z3c.form import button
+from z3c.form import button, field
 from z3c.formui import form
 from z3c.table import table
 from z3c.template.template import getPageTemplate
 
 from z3c.contents import interfaces
+from z3c.contents.search import SearchableTextFindFilter
 
 _ = zope.i18nmessageid.MessageFactory('z3c')
 
@@ -60,6 +61,41 @@ def safeGetAttr(obj, attr, default):
         return getattr(obj, attr, default)
     except Unauthorized:
         return default
+
+
+class ContentsSearch(object):
+    """An adapter for container context to satisfy search form requirements
+    
+    """
+
+    zope.interface.implements(interfaces.IContentsSearch)
+    zope.component.adapts(zope.interface.Interface)
+
+    def __init__(self, context):
+        self.context = context
+
+    def get_searchterm(self):
+        return u''
+
+    def set_searchterm(self, value):
+        pass
+
+    searchterm = property(get_searchterm, set_searchterm)
+
+class ContentsSearchForm(form.Form):
+
+    template = getPageTemplate()
+    fields = field.Fields(interfaces.IContentsSearch)
+    prefix = 'search'
+    table = None
+
+    @button.buttonAndHandler(_('Search'), name='search')
+    def handleSearch(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = u'Some error message'
+            return
+        self.table.searchterm = data.get('searchterm', '')
 
 
 # conditions
@@ -90,6 +126,9 @@ class ContentsPage(table.Table, form.Form):
 
     template = getPageTemplate()
 
+    # search sub-form
+    search = None
+
     # internal defaults
     selectedItems = []
     ignoreContext = False
@@ -100,6 +139,9 @@ class ContentsPage(table.Table, form.Form):
     supportsPaste = False
     supportsRename = False
 
+    # sort attributes
+    sortOn = 1 # initial sort on name column
+
     # customize this part
     allowCut = True
     allowCopy = True
@@ -108,6 +150,7 @@ class ContentsPage(table.Table, form.Form):
     allowRename = True
 
     prefix = 'contents'
+    searchterm = ''
 
     # error messages
     cutNoItemsMessage = _('No items selected for cut')
@@ -128,10 +171,16 @@ class ContentsPage(table.Table, form.Form):
     renameItemNotFoundMessage = _('Item not found')
 
     def update(self):
+
+        self.search = ContentsSearchForm(self.context, self.request)
+        self.search.table = self
+        self.search.update()
+
         # first setup columns and process the items as selected if any
         super(ContentsPage, self).update()
         # second find out if we support paste
         self.clipboard = queryPrincipalClipboard(self.request)
+
         self.setupCopyPasteMove()
         self.updateWidgets()
         self.updateActions()
@@ -160,6 +209,28 @@ class ContentsPage(table.Table, form.Form):
     def render(self):
         """Render the template."""
         return self.template()
+
+    @property
+    def values(self):
+
+        # not searching
+        if not self.searchterm:
+            return self.context.values()
+
+        # no search adapter for the context
+        try:
+            search = interfaces.ISearch(self.context)
+        except TypeError:
+            return self.context.values()
+
+        # perform the search
+        searchterms = self.searchterm.split(' ')
+
+        # possible enhancement would be to look up these filters as adapters to
+        # the container! Maybe we can use catalogs here?
+        return search.search(id_filters=[SimpleIdFindFilter(searchterms)],
+                            object_filters=[SearchableTextFindFilter(searchterms)])
+
 
     @property
     def hasContent(self):
@@ -326,13 +397,18 @@ class ContentsPage(table.Table, form.Form):
             return
         try:
             for item in self.selectedItems:
-                del self.context[api.getName(item)]
+                self.executeDelete(item)
         except KeyError:
             self.status = self.deleteErrorMessage
             transaction.doom()
         # update the table rows before we start with rendering
         self.updateAfterActionExecution()
         self.status = self.deleteSucsessMessage
+
+    def executeDelete(self, item):
+        """Do the actual item deletion
+        """
+        del self.context[api.getName(item)]
 
     @button.buttonAndHandler(_('Rename'), name='rename', condition=canRename)
     def handlerRename(self, action):

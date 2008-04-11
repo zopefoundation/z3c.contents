@@ -16,4 +16,10 @@
       layer="zope.publisher.interfaces.browser.IBrowserRequest"
       />
 
+  <z3c:template
+      template="search.pt"
+      for=".browser.ContentsSearchForm"
+      layer="zope.publisher.interfaces.browser.IBrowserRequest"
+      />
+
 </configure>

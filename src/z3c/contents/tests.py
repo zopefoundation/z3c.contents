@@ -35,6 +35,7 @@ from zope.app.testing import setup
 
 from z3c.macro import tales
 import z3c.table.testing 
+from z3c.contents import browser
 
 
 class PrincipalAnnotations(dict):
@@ -72,6 +73,9 @@ def setUp(test):
 
     # dublin core stub adapter
     zope.component.provideAdapter(z3c.table.testing.DublinCoreAdapterStub)
+
+    # contents search adapter
+    zope.component.provideAdapter(browser.ContentsSearch)
 
 
 def tearDown(test):

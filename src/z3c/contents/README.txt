@@ -44,7 +44,8 @@ And we need to setup the form defaults first:
   >>> from z3c.form.testing import setupFormDefaults
   >>> setupFormDefaults()
 
-And we need to configure our contents.pt template for the ContentsPage:
+And we need to configure our contents.pt template for the ContentsPage (we
+also configure the template for the search sub form here too)
 
   >>> import os
   >>> import sys
@@ -53,6 +54,8 @@ And we need to configure our contents.pt template for the ContentsPage:
   >>> context = xmlconfig.file('meta.zcml', z3c.template)
   >>> contentsTemplate = os.path.join(os.path.dirname(z3c.contents.__file__),
   ...     'contents.pt')
+  >>> searchTemplate = os.path.join(os.path.dirname(z3c.contents.__file__),
+  ...     'search.pt')
   >>> context = xmlconfig.string("""
   ... <configure
   ...     xmlns:z3c="http://namespaces.zope.org/z3c">
@@ -60,8 +63,12 @@ And we need to configure our contents.pt template for the ContentsPage:
   ...       for="z3c.contents.interfaces.IContentsPage"
   ...       template="%s"
   ...       />
+  ...   <z3c:template
+  ...       for="z3c.contents.browser.ContentsSearchForm"
+  ...       template="%s"
+  ...       />
   ... </configure>
-  ... """ % contentsTemplate, context=context)
+  ... """ % (contentsTemplate, searchTemplate), context=context)
 
 
 And load the formui confguration, which will make sure that all macros get 
@@ -110,6 +117,7 @@ Now we can create a ContentsPage:
            &ndash; required
         </div>
       <div>
+  ...
     </div>
     </div>
     <div>
@@ -174,6 +182,7 @@ Now let's update and render the contents page again:
            &ndash; required
         </div>
       <div>
+  ...
         <table>
           <thead>
             <tr>
@@ -235,7 +244,6 @@ Now let's update and render the contents page again:
       </div>
     </div>
   </form>
-
 
 Sorting
 -------
@@ -361,6 +369,7 @@ no buttons:
            &ndash; required
         </div>
       <div>
+  ...
         <table>
           <thead>
             <tr>
@@ -827,6 +836,112 @@ items get deleted and are gone now and the ``second`` item get renamed to
   [(u'fifth', <Content Second 2>), (u'first', <Content First 1>),
    (u'zero', <Content Zero 0>)]
 
+Search
+------
+
+Add an IFind adapter for the search:
+
+  >>> from z3c.contents.interfaces import ISearch
+  >>> from z3c.contents.search import SearchForContainer
+  >>> zope.component.provideAdapter(SearchForContainer)
+
+And also register ISearchableText adapter for the contained objects, the default
+filters for searching include searching the keys (content __name__) and using
+an ISearchableText adapter for the contained objects.
+
+  >>> from z3c.contents.testing import SearchableTextForContent
+  >>> zope.component.provideAdapter(SearchableTextForContent)
+
+The default search adapter matches search terms to the objects id in the
+container or to any possible string attribute.
+
+  >>> searchRequest = TestRequest(form={'search.buttons.search': 'Search',
+  ...                       'search.widgets.searchterm': u'1 zero'})
+  >>> alsoProvides(searchRequest, IDivFormLayer)
+  >>> searchPage = browser.ContentsPage(secondContainer, searchRequest)
+  >>> searchPage.update()
+  >>> print searchPage.render()
+  <form action="http://127.0.0.1" method="post"
+        enctype="multipart/form-data" class="edit-form"
+        name="contents" id="contents">
+  ...
+  <tbody>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
+      <td><a href="http://127.0.0.1/secondContainer/first">first</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+      <td><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
+      <td>01/01/01 01:01</td>
+      <td>02/02/02 02:02</td>
+    </tr>
+  </tbody>
+  ...
+
+Headers
+-------
+
+We have adapters to the columns that support inclusion of links in the headers
+to sort the columns.
+
+  >>> from z3c.contents.header import ContentsColumnHeader
+  >>> from z3c.table.interfaces import IColumnHeader
+  >>> zope.component.provideAdapter(ContentsColumnHeader,
+  ...     (IContainer, None, interfaces.IContentsPage, column.RenameColumn),
+  ...      provides=IColumnHeader)
+
+Now we shall see that the name column header includes a link with arguments to
+sort the table by that column.
+
+  >>> headerRequest = TestRequest()
+  >>> alsoProvides(headerRequest, IDivFormLayer)
+  >>> headerPage = browser.ContentsPage(secondContainer, headerRequest)
+  >>> headerPage.update()
+  >>> print headerPage.render()
+  <form action="http://127.0.0.1" method="post"
+        enctype="multipart/form-data" class="edit-form"
+        name="contents" id="contents">
+  ...
+  <thead>
+    <tr>
+      <th>X</th>
+      <th><a
+      href="?contents-sortOn=contents-renameColumn-1&contents-sortOrder=descending"
+      title="Sort">Name</a></th>
+      <th>Created</th>
+      <th>Modified</th>
+    </tr>
+  </thead>
+  ...
+
+When we perform a search we also expect the the search terms will also be
+included in the query so as to maintain the search across views.
+
+  >>> searchRequest = TestRequest(form={'search.buttons.search': 'Search',
+  ...                       'search.widgets.searchterm': u'First zero'})
+  >>> alsoProvides(searchRequest, IDivFormLayer)
+  >>> searchPage = browser.ContentsPage(secondContainer, searchRequest)
+  >>> searchPage.update()
+  >>> print searchPage.render()
+  <form action="http://127.0.0.1" method="post"
+        enctype="multipart/form-data" class="edit-form"
+        name="contents" id="contents">
+  ...
+  <thead>
+    <tr>
+      <th>X</th>
+      <th><a
+      href="?contents-sortOn=contents-renameColumn-1&contents-sortOrder=descending&search.widgets.searchterm=First+zero"
+      title="Sort">Name</a></th>
+      <th>Created</th>
+      <th>Modified</th>
+    </tr>
+  </thead>
+  ...
+
 
 Batching
 --------
@@ -855,11 +970,29 @@ row CSS class markers. The default batch size is set to ``25``:
            &ndash; required
         </div>
       <div>
+      <fieldset>
+        <legend>Search</legend>
+          <table>
+  <tr>
+  <td class="row">
+    <label for="search-widgets-searchterm">Search</label>
+    <input type="text" id="search-widgets-searchterm"
+         name="search.widgets.searchterm"
+         class="text-widget required textline-field" value="" />
+  </td>
+  <td class="action">
+    <input type="submit" id="search-buttons-search"
+         name="search.buttons.search"
+         class="submit-widget button-field" value="Search" />
+  </td>
+  </tr>
+  </table>
+      </fieldset>
       <table class="contents">
     <thead>
       <tr>
         <th>X</th>
-        <th>Name</th>
+        <th><a href="?contents-sortOn=contents-renameColumn-1&contents-sortOrder=descending" title="Sort">Name</a></th>
         <th>Created</th>
         <th>Modified</th>
       </tr>
