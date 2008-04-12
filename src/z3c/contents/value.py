@@ -18,7 +18,7 @@ __docformat__ = "reStructuredText"
 
 import zope.component
 from zope.publisher.interfaces.browser import IBrowserRequest
-from zope.app.container.interfaces import IContainer
+from zope.app.container.interfaces import IReadContainer
 from zope.app.container.find import SimpleIdFindFilter
 
 import z3c.table.value
@@ -30,7 +30,7 @@ from z3c.contents.search import SearchableTextFindFilter
 class SearchableValues(z3c.table.value.ValuesMixin):
     """Values based on given search."""
 
-    zope.component.adapts(IContainer, IBrowserRequest, interfaces.IContentsPage)
+    zope.component.adapts(IReadContainer, IBrowserRequest, interfaces.IContentsPage)
 
     @property
     def values(self):
