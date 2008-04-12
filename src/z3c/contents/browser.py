@@ -44,24 +44,8 @@ from z3c.contents import interfaces
 _ = zope.i18nmessageid.MessageFactory('z3c')
 
 
-def queryPrincipalClipboard(request):
-    """Return the clipboard based on the request."""
-    user = request.principal
-    annotations = IAnnotations(user, None)
-    if annotations is None:
-        return None
-    return IPrincipalClipboard(annotations, None)
-
-
-def safeGetAttr(obj, attr, default):
-    """Attempts to read the attr, returning default if Unauthorized."""
-    try:
-        return getattr(obj, attr, default)
-    except Unauthorized:
-        return default
-
-
 class ContentsSearchForm(form.Form):
+    """Search form for IContentsPage."""
 
     template = getPageTemplate()
     fields = field.Fields(field.Field(
@@ -80,6 +64,23 @@ class ContentsSearchForm(form.Form):
             self.status = u'Some error message'
             return
         self.table.searchterm = data.get('searchterm', '')
+
+
+def queryPrincipalClipboard(request):
+    """Return the clipboard based on the request."""
+    user = request.principal
+    annotations = IAnnotations(user, None)
+    if annotations is None:
+        return None
+    return IPrincipalClipboard(annotations, None)
+
+
+def safeGetAttr(obj, attr, default):
+    """Attempts to read the attr, returning default if Unauthorized."""
+    try:
+        return getattr(obj, attr, default)
+    except Unauthorized:
+        return default
 
 
 # conditions

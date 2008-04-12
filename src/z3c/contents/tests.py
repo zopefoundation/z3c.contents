@@ -35,7 +35,6 @@ from zope.app.testing import setup
 
 from z3c.macro import tales
 import z3c.table.testing
-import z3c.contents.search
 import z3c.contents.value
 
 

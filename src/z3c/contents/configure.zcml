@@ -44,7 +44,7 @@
       />
 
   <adapter
-      factory="z3c.contents.search.SearchForContainer"
+      factory="z3c.contents.value.SearchForContainer"
       />
 
   <!-- include also sorting column headers for some columns

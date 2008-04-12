@@ -842,7 +842,7 @@ Search
 Add an IFind adapter for the search:
 
   >>> from z3c.contents.interfaces import ISearch
-  >>> from z3c.contents.search import SearchForContainer
+  >>> from z3c.contents.value import SearchForContainer
   >>> zope.component.provideAdapter(SearchForContainer)
 
 And also register ISearchableText adapter for the contained objects, the default
