@@ -27,6 +27,38 @@ _ = zope.i18nmessageid.MessageFactory('z3c')
 class IContentsPage(interfaces.ITable):
     """Container management page."""
 
+    searchForm = zope.interface.Attribute('Search form')
+
+    allowCut = zope.schema.Bool(
+        title=u'Allow cut',
+        description=(u'Allow cut operation if available.'),
+        default=True)
+
+    allowCopy = zope.schema.Bool(
+        title=u'Allow copy',
+        description=(u'Allow copy operation if available.'),
+        default=True)
+
+    allowDelete = zope.schema.Bool(
+        title=u'Allow delete',
+        description=(u'Allow delete operation if available.'),
+        default=True)
+
+    allowPaste = zope.schema.Bool(
+        title=u'Allow paste',
+        description=(u'Allow paste operation if available.'),
+        default=True)
+
+    allowRename = zope.schema.Bool(
+        title=u'Allow rename',
+        description=(u'Allow rename operation if available.'),
+        default=True)
+
+    allowSearch = zope.schema.Bool(
+        title=u'Allow search',
+        description=(u'Allow search.'),
+        default=True)
+
 
 class ISearch(zope.interface.Interface):
     """
