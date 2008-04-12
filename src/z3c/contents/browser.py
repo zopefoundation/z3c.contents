@@ -180,7 +180,7 @@ class ContentsPage(table.Table, form.Form):
             self.supportsPaste = self.hasClipboardContents
         if self.allowRename:
             self.supportsRename = (hasContent and self.supportsCut and
-                    not IContainerNamesContainer.providedBy(self.context))
+                not IContainerNamesContainer.providedBy(self.context))
 
     def updateAfterActionExecution(self):
         """Adjust new container length and copa paste move status."""
