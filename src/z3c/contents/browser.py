@@ -48,14 +48,16 @@ class ContentsSearchForm(form.Form):
     """Search form for IContentsPage."""
 
     template = getPageTemplate()
+    prefix = 'search'
+    ignoreContext = True
+    table = None
+    searchterm = u''
+
     fields = field.Fields(field.Field(
         zope.schema.TextLine(
             title=_(u'Search'),
             description=_('Search term'),
             default=u''), 'searchterm'))
-    prefix = 'search'
-    table = None
-    ignoreContext = True
 
     @button.buttonAndHandler(_('Search'), name='search')
     def handleSearch(self, action):
@@ -63,7 +65,7 @@ class ContentsSearchForm(form.Form):
         if errors:
             self.status = u'Some error message'
             return
-        self.table.searchterm = data.get('searchterm', '')
+        self.searchterm = data.get('searchterm', '')
 
 
 def queryPrincipalClipboard(request):
@@ -133,9 +135,9 @@ class ContentsPage(table.Table, form.Form):
     allowDelete = True
     allowPaste = True
     allowRename = True
+    allowSearch = True
 
     prefix = 'contents'
-    searchterm = ''
 
     # error messages
     cutNoItemsMessage = _('No items selected for cut')

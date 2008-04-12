@@ -106,13 +106,16 @@ class SearchableValues(z3c.table.value.ValuesMixin):
             return self.context.values()
 
         # first setup and update search form
-        self.table.searchForm = browser.ContentsSearchForm(self.context,
+        searchForm = browser.ContentsSearchForm(self.context,
             self.request)
-        self.table.searchForm.table = self.table
-        self.table.searchForm.update()
+        searchForm.table = self.table
+        searchForm.update()
+
+        # expose the search form in the table for rendering
+        self.table.searchForm = searchForm
 
         # not searching
-        if not self.table.searchterm:
+        if not searchForm.searchterm:
             return self.context.values()
 
         # no search adapter for the context
@@ -122,7 +125,7 @@ class SearchableValues(z3c.table.value.ValuesMixin):
             return self.context.values()
 
         # perform the search
-        searchterms = self.table.searchterm.split(' ')
+        searchterms = searchForm.searchterm.split(' ')
 
         # possible enhancement would be to look up these filters as adapters to
         # the container! Maybe we can use catalogs here?
