@@ -31,7 +31,6 @@ from zope.security.proxy import removeSecurityProxy
 from zope.security.interfaces import Unauthorized
 from zope.traversing.interfaces import TraversalError
 from zope.traversing import api
-from zope.app.container.find import SimpleIdFindFilter
 from zope.app.container.interfaces import IContainerNamesContainer
 from zope.app.container.interfaces import DuplicateIDError
 
@@ -41,7 +40,6 @@ from z3c.table import table
 from z3c.template.template import getPageTemplate
 
 from z3c.contents import interfaces
-from z3c.contents.search import SearchableTextFindFilter
 
 _ = zope.i18nmessageid.MessageFactory('z3c')
 
@@ -152,18 +150,13 @@ class ContentsPage(table.Table, form.Form):
     renameItemNotFoundMessage = _('Item not found')
 
     def update(self):
-        # first setup and update search form
-        self.searchForm = ContentsSearchForm(self.context, self.request)
-        self.searchForm.table = self
-        self.searchForm.update()
-
-        # second setup columns and process the items as selected if any
+        # first setup columns and process the items as selected if any
         super(ContentsPage, self).update()
-        # third find out if we support paste
+        # second find out if we support paste
         self.clipboard = queryPrincipalClipboard(self.request)
         self.setupCopyPasteMove()
 
-        # fourth setup form part
+        # third setup form part
         self.updateWidgets()
         self.updateActions()
         self.actions.execute()
@@ -191,27 +184,6 @@ class ContentsPage(table.Table, form.Form):
     def render(self):
         """Render the template."""
         return self.template()
-
-    @property
-    def values(self):
-
-        # not searching
-        if not self.searchterm:
-            return self.context.values()
-
-        # no search adapter for the context
-        try:
-            search = interfaces.ISearch(self.context)
-        except TypeError:
-            return self.context.values()
-
-        # perform the search
-        searchterms = self.searchterm.split(' ')
-
-        # possible enhancement would be to look up these filters as adapters to
-        # the container! Maybe we can use catalogs here?
-        return search.search(id_filters=[SimpleIdFindFilter(searchterms)],
-            object_filters=[SearchableTextFindFilter(searchterms)])
 
     @property
     def hasContent(self):

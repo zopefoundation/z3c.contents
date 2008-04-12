@@ -36,6 +36,7 @@ from zope.app.testing import setup
 from z3c.macro import tales
 import z3c.table.testing
 import z3c.contents.search
+import z3c.contents.value
 
 
 class PrincipalAnnotations(dict):
@@ -73,6 +74,9 @@ def setUp(test):
 
     # dublin core stub adapter
     zope.component.provideAdapter(z3c.table.testing.DublinCoreAdapterStub)
+
+    # value adapter
+    zope.component.provideAdapter(z3c.contents.value.SearchableValues)
 
     # contents search adapter
     zope.component.provideAdapter(z3c.contents.search.ContentsSearch)

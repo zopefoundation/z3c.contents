@@ -12,15 +12,14 @@
 #
 ##############################################################################
 """
-$Id:$
+$Id$
 """
 __docformat__ = "reStructuredText"
 
-
 from z3c.table.header import SortingColumnHeader
+
 
 class ContentsColumnHeader(SortingColumnHeader):
     """Sorting column header."""
 
     _request_args = ['search.widgets.searchterm']
-
