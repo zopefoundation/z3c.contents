@@ -101,6 +101,9 @@ class SearchableValues(z3c.table.value.ValuesMixin):
 
     @property
     def values(self):
+        # search form is not enabled
+        if not self.table.allowSearch:
+            return self.context.values()
 
         # first setup and update search form
         self.table.searchForm = browser.ContentsSearchForm(self.context,
