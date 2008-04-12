@@ -28,20 +28,6 @@ class IContentsPage(interfaces.ITable):
     """Container management page."""
 
 
-class IContentsSearch(zope.interface.Interface):
-    """We would like to provide a search field for searching within the
-    container.
-    
-    Possible addition here could be a choice field to search within specific
-    columns.
-    """
-
-    searchterm = zope.schema.TextLine(
-        title=_(u'Search'),
-        description=_('Search term'),
-        default=u'')
-
-
 class ISearch(zope.interface.Interface):
     """
     Search support for containers.

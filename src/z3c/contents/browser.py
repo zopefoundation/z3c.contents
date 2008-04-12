@@ -64,7 +64,11 @@ def safeGetAttr(obj, attr, default):
 class ContentsSearchForm(form.Form):
 
     template = getPageTemplate()
-    fields = field.Fields(interfaces.IContentsSearch)
+    fields = field.Fields(field.Field(
+        zope.schema.TextLine(
+            title=_(u'Search'),
+            description=_('Search term'),
+            default=u''), 'searchterm'))
     prefix = 'search'
     table = None
     ignoreContext = True
