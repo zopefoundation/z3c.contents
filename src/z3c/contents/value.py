@@ -63,8 +63,8 @@ class SearchableTextFindFilter(object):
         """Check if one of the search terms is found in the searchable text
         interface.
         """
-        adapter = zope.component.queryAdapter(object, ISearchableText)
-        if not adapter:
+        adapter = ISearchableText(object, None)
+        if adapter is None:
             return False
         searchable = adapter.getSearchableText().lower()
         for term in [t.lower() for t in self.terms]:
