@@ -44,10 +44,6 @@
       />
 
   <adapter
-      factory="z3c.contents.search.ContentsSearch"
-      />
-
-  <adapter
       factory="z3c.contents.search.SearchForContainer"
       />
 

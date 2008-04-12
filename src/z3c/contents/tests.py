@@ -78,9 +78,6 @@ def setUp(test):
     # value adapter
     zope.component.provideAdapter(z3c.contents.value.SearchableValues)
 
-    # contents search adapter
-    zope.component.provideAdapter(z3c.contents.search.ContentsSearch)
-
 
 def tearDown(test):
     setup.placefulTearDown()

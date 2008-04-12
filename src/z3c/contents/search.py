@@ -45,24 +45,6 @@ class SearchForContainer(object):
         return result
 
 
-class ContentsSearch(object):
-    """An adapter for container to satisfy search form requirements."""
-
-    zope.interface.implements(interfaces.IContentsSearch)
-    zope.component.adapts(zope.interface.Interface)
-
-    def __init__(self, context):
-        self.context = context
-
-    @apply
-    def searchterm():
-        def get(self):
-            return u''
-        def set(self, value):
-            pass
-        return property(get, set)
-
-
 def _search_helper(id, object, container, id_filters, object_filters, result):
     # check id filters if we get a match then return immediately
     for id_filter in id_filters:

@@ -5,6 +5,7 @@ Contents
 The goal of this package is to offer a modular replacement for the default 
 contents.html page used in Zope3.
 
+
 Initially
 =========
 

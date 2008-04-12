@@ -67,6 +67,7 @@ class ContentsSearchForm(form.Form):
     fields = field.Fields(interfaces.IContentsSearch)
     prefix = 'search'
     table = None
+    ignoreContext = True
 
     @button.buttonAndHandler(_('Search'), name='search')
     def handleSearch(self, action):
@@ -105,7 +106,7 @@ class ContentsPage(table.Table, form.Form):
 
     template = getPageTemplate()
 
-    # search sub-form
+    # internal search form provided by IValues adapter
     searchForm = None
 
     # internal defaults
@@ -150,7 +151,7 @@ class ContentsPage(table.Table, form.Form):
     renameItemNotFoundMessage = _('Item not found')
 
     def update(self):
-        # first setup columns and process the items as selected if any
+        # first setup search values, generate rows, setup headers and columns
         super(ContentsPage, self).update()
         # second find out if we support paste
         self.clipboard = queryPrincipalClipboard(self.request)
