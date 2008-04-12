@@ -839,13 +839,7 @@ items get deleted and are gone now and the ``second`` item get renamed to
 Search
 ------
 
-Add an IFind adapter for the search:
-
-  >>> from z3c.contents.interfaces import ISearch
-  >>> from z3c.contents.value import SearchForContainer
-  >>> zope.component.provideAdapter(SearchForContainer)
-
-And also register ISearchableText adapter for the contained objects, the default
+Register ISearchableText adapter for the contained objects, the default
 filters for searching include searching the keys (content __name__) and using
 an ISearchableText adapter for the contained objects.
 

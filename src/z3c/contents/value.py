@@ -73,26 +73,6 @@ class SearchableTextFindFilter(object):
         return False
 
 
-class SearchForContainer(object):
-    """ISearch for IReadContainer."""
-
-    zope.interface.implements(interfaces.ISearch)
-    zope.component.adapts(IReadContainer)
-
-    def __init__(self, context):
-        self.context = context
-
-    def search(self, id_filters=None, object_filters=None):
-        'See ISearch'
-        id_filters = id_filters or []
-        object_filters = object_filters or []
-        result = []
-        for id, object in self.context.items():
-            _search_helper(id, object, self.context, id_filters, object_filters,
-                result)
-        return result
-
-
 class SearchableValues(z3c.table.value.ValuesMixin):
     """Values based on given search."""
 
@@ -118,16 +98,18 @@ class SearchableValues(z3c.table.value.ValuesMixin):
         if not searchForm.searchterm:
             return self.context.values()
 
-        # no search adapter for the context
-        try:
-            search = interfaces.ISearch(self.context)
-        except TypeError:
+        # setup search filters
+        criterias = searchForm.searchterm.strip().split(' ')
+        if not criterias:
+            # only empty strings given
             return self.context.values()
 
-        # perform the search
-        searchterms = searchForm.searchterm.split(' ')
+        result = []
+        id_filters = [SimpleIdFindFilter(criterias)]
+        object_filters = [SearchableTextFindFilter(criterias)]
 
-        # possible enhancement would be to look up these filters as adapters to
-        # the container! Maybe we can use catalogs here?
-        return search.search(id_filters=[SimpleIdFindFilter(searchterms)],
-            object_filters=[SearchableTextFindFilter(searchterms)])
+        # query items
+        for key, value in self.context.items():
+            _search_helper(key, value, self.context, id_filters, object_filters,
+                result)
+        return result

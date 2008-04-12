@@ -43,10 +43,6 @@
       provides="z3c.table.interfaces.IColumn"
       />
 
-  <adapter
-      factory="z3c.contents.value.SearchForContainer"
-      />
-
   <!-- include also sorting column headers for some columns
        leaving out CheckBoxColumn -->
   <adapter

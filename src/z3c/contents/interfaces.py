@@ -58,19 +58,3 @@ class IContentsPage(interfaces.ITable):
         title=u'Allow search',
         description=(u'Allow search.'),
         default=True)
-
-
-class ISearch(zope.interface.Interface):
-    """
-    Search support for containers.
-
-    This is different to z.a.c.interfaces.IFind in that the search method
-    will match **any** filter whereas the find method of IFind will match
-    if **all** filters match.
-    """
-
-    def search(id_filters=None, object_filters=None):
-        """Find object that matches **any** filters in all sub-objects.
-
-        This container itself is not included.
-        """
