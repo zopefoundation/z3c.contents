@@ -2,8 +2,13 @@
 CHANGES
 =======
 
-Version 0.5.0 (unreleased)
+Version 0.5.0 (2008-04-13)
 --------------------------
+
+- Refactored the search implementation. Now it's very easy to customize the 
+  search. The offered z3c.table.interfaces.IValue adapter based search allows
+  us to implement any kind of search patters for any context and table 
+  combination. 
 
 - Merged search branch back to trunk
 
