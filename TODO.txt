@@ -1,8 +1,0 @@
-====
-TODO
-====
-
-- implement functional doc tests with real traversable contents.html view
-
-- add tests for batching, the registered template works but need some more
-  nice rendering hooks. Implement additional div tags for batch links
