@@ -29,26 +29,25 @@ from z3c.contents import interfaces
 from z3c.contents import browser
 
 
-def _search_helper(id, object, container, id_filters, object_filters, result):
+def _search_helper(id, obj, container, id_filters, object_filters, result):
     # check id filters if we get a match then return immediately
     for id_filter in id_filters:
         if id_filter.matches(id):
-            result.append(object)
+            result.append(obj)
             return
 
     # now check all object filters
     for object_filter in object_filters:
-        if object_filter.matches(object):
-            result.append(object)
+        if object_filter.matches(obj):
+            result.append(obj)
             return
 
     # do we need to check sub containers?
-    if not IReadContainer.providedBy(object):
+    if not IReadContainer.providedBy(obj):
         return
 
-    container = object
-    for id, object in container.items():
-        _search_helper(id, object, container, id_filters, object_filters, result)
+    for key, value in obj.items():
+        _search_helper(key, value, obj, id_filters, object_filters, result)
 
 
 class SearchableTextFindFilter(object):
