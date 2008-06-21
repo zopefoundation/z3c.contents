@@ -1,6 +1,6 @@
 <div metal:use-macro="macro:form">
   <div metal:fill-slot="main">
-    <fieldset>
+    <fieldset tal:condition="view/allowSearch">
       <legend>Search</legend>
         <tal:block replace="structure view/searchForm/render">search form</tal:block>
     </fieldset>
