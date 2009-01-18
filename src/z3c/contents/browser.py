@@ -169,6 +169,11 @@ class ContentsPage(table.Table, form.Form):
         self.updateActions()
         self.actions.execute()
 
+        # fix for update-render bug; ie: when we copy, paste should show
+        # up for the same container).
+        self.setupCopyPasteMove()
+        self.updateActions()
+
     def setupCopyPasteMove(self):
         hasContent = self.hasContent
         if self.allowCut:

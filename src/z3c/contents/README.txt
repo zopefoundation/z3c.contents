@@ -29,8 +29,8 @@ add them to the root:
   >>> root['container'] = container
 
 Now setup some items based on our testing Content object. Note this object is
-defined in the testing module because it must be pickable because the object
-copier pickels objects during copy/paste:
+defined in the testing module because it must be pickle-able because the object
+copier pickles objects during copy/paste:
 
   >>> from z3c.contents.testing import Content
   >>> container[u'zero'] = Content('Zero', 0)
@@ -71,7 +71,7 @@ also configure the template for the search sub form here too.
   ... """ % (contentsTemplate, searchTemplate), context=context)
 
 
-And load the formui confguration, which will make sure that all macros get 
+And load the formui configuration, which will make sure that all macros get 
 registered correctly.
 
   >>> from zope.configuration import xmlconfig
@@ -346,7 +346,7 @@ Let's make coverage happy and sort on the rename column:
 Copy
 ----
 
-Frist we need to setup another container which we can copy to:
+First we need to setup another container which we can copy to:
 
   >>> secondContainer = Container()
   >>> root['secondContainer'] = secondContainer
@@ -393,6 +393,9 @@ no buttons:
 Now we start with copy the ``zero`` item from the first page. We can do this
 by using some request variables. Let's setup a new request. See the feedback
 we will get as form message:
+
+Also note that an additional ``Paste`` button will show up, because we should
+be able to paste objects within the same container they're copied from.
 
   >>> copyRequest = TestRequest(
   ...     form={'contents-checkBoxColumn-0-selectedItems': ['zero'],
@@ -450,16 +453,36 @@ we will get as form message:
     </tr>
   </tbody>
   ...
+    <div>
+      <div class="buttons">
+        <input type="submit" id="contents-buttons-copy"
+               name="contents.buttons.copy"
+               class="submit-widget button-field" value="Copy" />
+        <input type="submit" id="contents-buttons-cut"
+               name="contents.buttons.cut"
+               class="submit-widget button-field" value="Cut" />
+        <input type="submit" id="contents-buttons-paste"
+               name="contents.buttons.paste"
+               class="submit-widget button-field" value="Paste" />
+        <input type="submit" id="contents-buttons-delete"
+               name="contents.buttons.delete"
+               class="submit-widget button-field" value="Delete" />
+        <input type="submit" id="contents-buttons-rename"
+               name="contents.buttons.rename"
+               class="submit-widget button-field" value="Rename" />
+      </div>
+    </div>
+  </form>
 
 
 Copy - Paste
 ------------
 
 Now we can go to the second page and paste our selected object. Just prepare
-a request which simualtes that we clicked at the paste button and we can see
-that we pasted the selected item to the second container. You can see that 
-there is an additional ``Paste`` button becase we have some items for paste
-in the clipboard:
+a request which simulates that we clicked at the paste button and we can see
+that we pasted the selected item to the second container. You can also see 
+that the ``Paste`` button, because the clipboard contains items copied 
+from another container.
 
   >>> pasteRequest = TestRequest(form={'contents.buttons.paste': 'Paste'})
   >>> alsoProvides(pasteRequest, IDivFormLayer)
@@ -704,7 +727,7 @@ Rename
 
 If we like to rename items, we can do this with the ``Rename`` button. This
 means if we use them, we will get input widgets for the selected items rendered
-in the table. After that, we can click the botton another time which will 
+in the table. After that, we can click the button another time which will 
 do the renaming. Let's setup a table which we select items and click the 
 ``Rename`` button:
 
@@ -825,7 +848,7 @@ error. Let's test this:
   ...
 
 As you can see everything goes right. We can check the containers which should
-reflect the same as we see in the tables. Note the ``third`` and ``foruth`` 
+reflect the same as we see in the tables. Note the ``third`` and ``fourth`` 
 items get deleted and are gone now and the ``second`` item get renamed to 
 ``fifth``:
 
