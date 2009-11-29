@@ -11,18 +11,8 @@ Sample data setup
 
 Let's create a sample container which we can use as our context:
 
-  >>> import zope.app.container.interfaces
-  >>> class IContainer(zope.app.container.interfaces.IContainer):
-  ...     """Custom container marker use as discriminator."""
-
-  >>> import zope.interface
-  >>> from zope.app.container import btree
-  >>> class Container(btree.BTreeContainer):
-  ...     """Sample container."""
-  ... 
-  ...     zope.interface.implements(IContainer)
-  ... 
-  >>> container = Container()
+  >>> from z3c.contents import testing
+  >>> container = testing.SampleContainer()
 
 add them to the root:
 
@@ -75,6 +65,7 @@ And load the formui configuration, which will make sure that all macros get
 registered correctly.
 
   >>> from zope.configuration import xmlconfig
+  >>> import zope.i18n
   >>> import zope.component
   >>> import zope.viewlet
   >>> import zope.app.component
@@ -82,6 +73,7 @@ registered correctly.
   >>> import z3c.macro
   >>> import z3c.template
   >>> import z3c.formui
+  >>> xmlconfig.XMLConfig('meta.zcml', zope.i18n)()
   >>> xmlconfig.XMLConfig('meta.zcml', zope.component)()
   >>> xmlconfig.XMLConfig('meta.zcml', zope.viewlet)()
   >>> xmlconfig.XMLConfig('meta.zcml', zope.app.component)()
@@ -112,28 +104,46 @@ Now we can create a ContentsPage:
         enctype="multipart/form-data" class="edit-form"
         name="contents" id="contents">
     <div class="viewspace">
-        <div class="required-info">
-           <span class="required">*</span>
-           &ndash; required
-        </div>
       <div>
-  ...
+      <fieldset>
+        <legend>Search</legend>
+          <table>
+  <tr>
+  <td class="row">
+    <label for="search-widgets-searchterm">Search</label>
+      <input id="search-widgets-searchterm"
+             name="search.widgets.searchterm"
+             class="text-widget required textline-field"
+             value="" type="text" />
+  </td>
+  <td class="action">
+  <input id="search-buttons-search"
+         name="search.buttons.search"
+         class="submit-widget button-field" value="Search"
+         type="submit" />
+  </td>
+  </tr>
+  </table>
+      </fieldset>
     </div>
     </div>
     <div>
       <div class="buttons">
-        <input type="submit" id="contents-buttons-copy"
-               name="contents.buttons.copy"
-               class="submit-widget button-field" value="Copy" />
-        <input type="submit" id="contents-buttons-cut"
-               name="contents.buttons.cut"
-               class="submit-widget button-field" value="Cut" />
-        <input type="submit" id="contents-buttons-delete"
-               name="contents.buttons.delete"
-               class="submit-widget button-field" value="Delete" />
-        <input type="submit" id="contents-buttons-rename"
-               name="contents.buttons.rename"
-               class="submit-widget button-field" value="Rename" />
+  <input id="contents-buttons-copy"
+         name="contents.buttons.copy"
+         class="submit-widget button-field" value="Copy"
+         type="submit" />
+  <input id="contents-buttons-cut" name="contents.buttons.cut"
+         class="submit-widget button-field" value="Cut"
+         type="submit" />
+  <input id="contents-buttons-delete"
+         name="contents.buttons.delete"
+         class="submit-widget button-field" value="Delete"
+         type="submit" />
+  <input id="contents-buttons-rename"
+         name="contents.buttons.rename"
+         class="submit-widget button-field" value="Rename"
+         type="submit" />
       </div>
     </div>
   </form>
@@ -147,6 +157,7 @@ existing contents.html pages with additional columns. Use the adapter directive
 for this:
 
   >>> import zope.component
+  >>> from zope.container.interfaces import IContainer
   >>> from z3c.table.interfaces import IColumn
   >>> from z3c.contents import interfaces
   >>> from z3c.table.column import CheckBoxColumn
@@ -177,70 +188,88 @@ Now let's update and render the contents page again:
         enctype="multipart/form-data" class="edit-form"
         name="contents" id="contents">
     <div class="viewspace">
-        <div class="required-info">
-           <span class="required">*</span>
-           &ndash; required
-        </div>
       <div>
-  ...
-        <table>
-          <thead>
-            <tr>
-              <th>X</th>
-              <th>Name</th>
-              <th>Created</th>
-              <th>Modified</th>
-            </tr>
-          </thead>
-            <tbody>
-              <tr>
-                <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
-                <td><a href="http://127.0.0.1/container/first">first</a></td>
-                <td>01/01/01 01:01</td>
-                <td>02/02/02 02:02</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
-                <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
-                <td>01/01/01 01:01</td>
-                <td>02/02/02 02:02</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
-                <td><a href="http://127.0.0.1/container/second">second</a></td>
-                <td>01/01/01 01:01</td>
-                <td>02/02/02 02:02</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
-                <td><a href="http://127.0.0.1/container/third">third</a></td>
-                <td>01/01/01 01:01</td>
-                <td>02/02/02 02:02</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-                <td><a href="http://127.0.0.1/container/zero">zero</a></td>
-                <td>01/01/01 01:01</td>
-                <td>02/02/02 02:02</td>
-              </tr>
-            </tbody>
-        </table>
-      </div>
+      <fieldset>
+        <legend>Search</legend>
+          <table>
+  <tr>
+  <td class="row">
+    <label for="search-widgets-searchterm">Search</label>
+      <input id="search-widgets-searchterm"
+             name="search.widgets.searchterm"
+             class="text-widget required textline-field"
+             value="" type="text" />
+  </td>
+  <td class="action">
+  <input id="search-buttons-search"
+         name="search.buttons.search"
+         class="submit-widget button-field" value="Search"
+         type="submit" />
+  </td>
+  </tr>
+  </table>
+      </fieldset>
+      <table>
+    <thead>
+      <tr>
+        <th>X</th>
+        <th>Name</th>
+        <th>Created</th>
+        <th>Modified</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
+        <td><a href="http://127.0.0.1/container/first">first</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
+        <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
+        <td><a href="http://127.0.0.1/container/second">second</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
+        <td><a href="http://127.0.0.1/container/third">third</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+        <td><a href="http://127.0.0.1/container/zero">zero</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+    </tbody>
+  </table>
+    </div>
     </div>
     <div>
       <div class="buttons">
-        <input type="submit" id="contents-buttons-copy"
-               name="contents.buttons.copy"
-               class="submit-widget button-field" value="Copy" />
-        <input type="submit" id="contents-buttons-cut"
-               name="contents.buttons.cut"
-               class="submit-widget button-field" value="Cut" />
-        <input type="submit" id="contents-buttons-delete"
-               name="contents.buttons.delete"
-               class="submit-widget button-field" value="Delete" />
-        <input type="submit" id="contents-buttons-rename"
-               name="contents.buttons.rename"
-               class="submit-widget button-field" value="Rename" />
+  <input id="contents-buttons-copy"
+         name="contents.buttons.copy"
+         class="submit-widget button-field" value="Copy"
+         type="submit" />
+  <input id="contents-buttons-cut" name="contents.buttons.cut"
+         class="submit-widget button-field" value="Cut"
+         type="submit" />
+  <input id="contents-buttons-delete"
+         name="contents.buttons.delete"
+         class="submit-widget button-field" value="Delete"
+         type="submit" />
+  <input id="contents-buttons-rename"
+         name="contents.buttons.rename"
+         class="submit-widget button-field" value="Rename"
+         type="submit" />
       </div>
     </div>
   </form>
@@ -262,40 +291,92 @@ number names and not on the number itself.
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         name="contents" id="contents">
-  ...
-  <tbody>
-    <tr>
-      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-      <td><a href="http://127.0.0.1/container/zero">zero</a></td>
-      <td>01/01/01 01:01</td>
-      <td>02/02/02 02:02</td>
-    </tr>
-    <tr>
-      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
-      <td><a href="http://127.0.0.1/container/third">third</a></td>
-      <td>01/01/01 01:01</td>
-      <td>02/02/02 02:02</td>
-    </tr>
-    <tr>
-      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
-      <td><a href="http://127.0.0.1/container/second">second</a></td>
-      <td>01/01/01 01:01</td>
-      <td>02/02/02 02:02</td>
-    </tr>
-    <tr>
-      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
-      <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
-      <td>01/01/01 01:01</td>
-      <td>02/02/02 02:02</td>
-    </tr>
-    <tr>
-      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
-      <td><a href="http://127.0.0.1/container/first">first</a></td>
-      <td>01/01/01 01:01</td>
-      <td>02/02/02 02:02</td>
-    </tr>
-  </tbody>
-  ...
+    <div class="viewspace">
+      <div>
+      <fieldset>
+        <legend>Search</legend>
+          <table>
+  <tr>
+  <td class="row">
+    <label for="search-widgets-searchterm">Search</label>
+      <input id="search-widgets-searchterm"
+             name="search.widgets.searchterm"
+             class="text-widget required textline-field"
+             value="" type="text" />
+  </td>
+  <td class="action">
+  <input id="search-buttons-search"
+         name="search.buttons.search"
+         class="submit-widget button-field" value="Search"
+         type="submit" />
+  </td>
+  </tr>
+  </table>
+      </fieldset>
+      <table>
+    <thead>
+      <tr>
+        <th>X</th>
+        <th>Name</th>
+        <th>Created</th>
+        <th>Modified</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+        <td><a href="http://127.0.0.1/container/zero">zero</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
+        <td><a href="http://127.0.0.1/container/third">third</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
+        <td><a href="http://127.0.0.1/container/second">second</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
+        <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
+        <td><a href="http://127.0.0.1/container/first">first</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+    </tbody>
+  </table>
+    </div>
+    </div>
+    <div>
+      <div class="buttons">
+  <input id="contents-buttons-copy"
+         name="contents.buttons.copy"
+         class="submit-widget button-field" value="Copy"
+         type="submit" />
+  <input id="contents-buttons-cut" name="contents.buttons.cut"
+         class="submit-widget button-field" value="Cut"
+         type="submit" />
+  <input id="contents-buttons-delete"
+         name="contents.buttons.delete"
+         class="submit-widget button-field" value="Delete"
+         type="submit" />
+  <input id="contents-buttons-rename"
+         name="contents.buttons.rename"
+         class="submit-widget button-field" value="Rename"
+         type="submit" />
+      </div>
+    </div>
+  </form>
 
 Let's make coverage happy and sort on the rename column:
 
@@ -348,7 +429,7 @@ Copy
 
 First we need to setup another container which we can copy to:
 
-  >>> secondContainer = Container()
+  >>> secondContainer = testing.SampleContainer()
   >>> root['secondContainer'] = secondContainer
 
 And we need another contents page instance:
@@ -364,25 +445,40 @@ no buttons:
         enctype="multipart/form-data" class="edit-form"
         name="contents" id="contents">
     <div class="viewspace">
-        <div class="required-info">
-           <span class="required">*</span>
-           &ndash; required
-        </div>
       <div>
-  ...
-        <table>
-          <thead>
-            <tr>
-              <th>X</th>
-              <th>Name</th>
-              <th>Created</th>
-              <th>Modified</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
-      </div>
+      <fieldset>
+        <legend>Search</legend>
+          <table>
+  <tr>
+  <td class="row">
+    <label for="search-widgets-searchterm">Search</label>
+      <input id="search-widgets-searchterm"
+             name="search.widgets.searchterm"
+             class="text-widget required textline-field"
+             value="" type="text" />
+  </td>
+  <td class="action">
+  <input id="search-buttons-search"
+         name="search.buttons.search"
+         class="submit-widget button-field" value="Search"
+         type="submit" />
+  </td>
+  </tr>
+  </table>
+      </fieldset>
+      <table>
+    <thead>
+      <tr>
+        <th>X</th>
+        <th>Name</th>
+        <th>Created</th>
+        <th>Modified</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+    </div>
     </div>
     <div>
       <div class="buttons">
@@ -407,69 +503,96 @@ be able to paste objects within the same container they're copied from.
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         name="contents" id="contents">
-  ...
+    <div class="viewspace">
         <div class="status">
           <div class="summary">Items choosen for copy</div>
         </div>
-  ...
-  <thead>
-    <tr>
-      <th>X</th>
-      <th>Name</th>
-      <th>Created</th>
-      <th>Modified</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
-      <td><a href="http://127.0.0.1/container/first">first</a></td>
-      <td>01/01/01 01:01</td>
-      <td>02/02/02 02:02</td>
-    </tr>
-    <tr>
-      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
-      <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
-      <td>01/01/01 01:01</td>
-      <td>02/02/02 02:02</td>
-    </tr>
-    <tr>
-      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
-      <td><a href="http://127.0.0.1/container/second">second</a></td>
-      <td>01/01/01 01:01</td>
-      <td>02/02/02 02:02</td>
-    </tr>
-    <tr>
-      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
-      <td><a href="http://127.0.0.1/container/third">third</a></td>
-      <td>01/01/01 01:01</td>
-      <td>02/02/02 02:02</td>
-    </tr>
-    <tr>
-      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero" checked="checked" /></td>
-      <td><a href="http://127.0.0.1/container/zero">zero</a></td>
-      <td>01/01/01 01:01</td>
-      <td>02/02/02 02:02</td>
-    </tr>
-  </tbody>
-  ...
+      <div>
+      <fieldset>
+        <legend>Search</legend>
+          <table>
+  <tr>
+  <td class="row">
+    <label for="search-widgets-searchterm">Search</label>
+      <input id="search-widgets-searchterm"
+             name="search.widgets.searchterm"
+             class="text-widget required textline-field"
+             value="" type="text" />
+  </td>
+  <td class="action">
+  <input id="search-buttons-search"
+         name="search.buttons.search"
+         class="submit-widget button-field" value="Search"
+         type="submit" />
+  </td>
+  </tr>
+  </table>
+      </fieldset>
+      <table>
+    <thead>
+      <tr>
+        <th>X</th>
+        <th>Name</th>
+        <th>Created</th>
+        <th>Modified</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
+        <td><a href="http://127.0.0.1/container/first">first</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
+        <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
+        <td><a href="http://127.0.0.1/container/second">second</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
+        <td><a href="http://127.0.0.1/container/third">third</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero" checked="checked" /></td>
+        <td><a href="http://127.0.0.1/container/zero">zero</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+    </tbody>
+  </table>
+    </div>
+    </div>
     <div>
       <div class="buttons">
-        <input type="submit" id="contents-buttons-copy"
-               name="contents.buttons.copy"
-               class="submit-widget button-field" value="Copy" />
-        <input type="submit" id="contents-buttons-cut"
-               name="contents.buttons.cut"
-               class="submit-widget button-field" value="Cut" />
-        <input type="submit" id="contents-buttons-paste"
-               name="contents.buttons.paste"
-               class="submit-widget button-field" value="Paste" />
-        <input type="submit" id="contents-buttons-delete"
-               name="contents.buttons.delete"
-               class="submit-widget button-field" value="Delete" />
-        <input type="submit" id="contents-buttons-rename"
-               name="contents.buttons.rename"
-               class="submit-widget button-field" value="Rename" />
+  <input id="contents-buttons-copy"
+         name="contents.buttons.copy"
+         class="submit-widget button-field" value="Copy"
+         type="submit" />
+  <input id="contents-buttons-cut" name="contents.buttons.cut"
+         class="submit-widget button-field" value="Cut"
+         type="submit" />
+  <input id="contents-buttons-paste"
+         name="contents.buttons.paste"
+         class="submit-widget button-field" value="Paste"
+         type="submit" />
+  <input id="contents-buttons-delete"
+         name="contents.buttons.delete"
+         class="submit-widget button-field" value="Delete"
+         type="submit" />
+  <input id="contents-buttons-rename"
+         name="contents.buttons.rename"
+         class="submit-widget button-field" value="Rename"
+         type="submit" />
       </div>
     </div>
   </form>
@@ -492,37 +615,72 @@ from another container.
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         name="contents" id="contents">
-  ...
+    <div class="viewspace">
         <div class="status">
           <div class="summary">Data successfully pasted</div>
         </div>
-  ...
-  <tbody>
-    <tr>
-      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-      <td><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
-      <td>01/01/01 01:01</td>
-      <td>02/02/02 02:02</td>
-    </tr>
-  </tbody>
-  ...
+      <div>
+      <fieldset>
+        <legend>Search</legend>
+          <table>
+  <tr>
+  <td class="row">
+    <label for="search-widgets-searchterm">Search</label>
+      <input id="search-widgets-searchterm"
+             name="search.widgets.searchterm"
+             class="text-widget required textline-field"
+             value="" type="text" />
+  </td>
+  <td class="action">
+  <input id="search-buttons-search"
+         name="search.buttons.search"
+         class="submit-widget button-field" value="Search"
+         type="submit" />
+  </td>
+  </tr>
+  </table>
+      </fieldset>
+      <table>
+    <thead>
+      <tr>
+        <th>X</th>
+        <th>Name</th>
+        <th>Created</th>
+        <th>Modified</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+        <td><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+    </tbody>
+  </table>
+    </div>
+    </div>
     <div>
       <div class="buttons">
-        <input type="submit" id="contents-buttons-copy"
-               name="contents.buttons.copy"
-               class="submit-widget button-field" value="Copy" />
-        <input type="submit" id="contents-buttons-cut"
-               name="contents.buttons.cut"
-               class="submit-widget button-field" value="Cut" />
-        <input type="submit" id="contents-buttons-paste"
-               name="contents.buttons.paste"
-               class="submit-widget button-field" value="Paste" />
-        <input type="submit" id="contents-buttons-delete"
-               name="contents.buttons.delete"
-               class="submit-widget button-field" value="Delete" />
-        <input type="submit" id="contents-buttons-rename"
-               name="contents.buttons.rename"
-               class="submit-widget button-field" value="Rename" />
+  <input id="contents-buttons-copy"
+         name="contents.buttons.copy"
+         class="submit-widget button-field" value="Copy"
+         type="submit" />
+  <input id="contents-buttons-cut" name="contents.buttons.cut"
+         class="submit-widget button-field" value="Cut"
+         type="submit" />
+  <input id="contents-buttons-paste"
+         name="contents.buttons.paste"
+         class="submit-widget button-field" value="Paste"
+         type="submit" />
+  <input id="contents-buttons-delete"
+         name="contents.buttons.delete"
+         class="submit-widget button-field" value="Delete"
+         type="submit" />
+  <input id="contents-buttons-rename"
+         name="contents.buttons.rename"
+         class="submit-widget button-field" value="Rename"
+         type="submit" />
       </div>
     </div>
   </form>
@@ -596,46 +754,80 @@ And we can paste the selectded items to the second container:
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         name="contents" id="contents">
-  ...
+    <div class="viewspace">
         <div class="status">
           <div class="summary">Data successfully pasted</div>
         </div>
-  ...
-  <tbody>
-    <tr>
-      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
-      <td><a href="http://127.0.0.1/secondContainer/first">first</a></td>
-      <td>01/01/01 01:01</td>
-      <td>02/02/02 02:02</td>
-    </tr>
-    <tr>
-      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
-      <td><a href="http://127.0.0.1/secondContainer/second">second</a></td>
-      <td>01/01/01 01:01</td>
-      <td>02/02/02 02:02</td>
-    </tr>
-    <tr>
-      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-      <td><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
-      <td>01/01/01 01:01</td>
-      <td>02/02/02 02:02</td>
-    </tr>
-  </tbody>
-  ...
+      <div>
+      <fieldset>
+        <legend>Search</legend>
+          <table>
+  <tr>
+  <td class="row">
+    <label for="search-widgets-searchterm">Search</label>
+      <input id="search-widgets-searchterm"
+             name="search.widgets.searchterm"
+             class="text-widget required textline-field"
+             value="" type="text" />
+  </td>
+  <td class="action">
+  <input id="search-buttons-search"
+         name="search.buttons.search"
+         class="submit-widget button-field" value="Search"
+         type="submit" />
+  </td>
+  </tr>
+  </table>
+      </fieldset>
+      <table>
+    <thead>
+      <tr>
+        <th>X</th>
+        <th>Name</th>
+        <th>Created</th>
+        <th>Modified</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
+        <td><a href="http://127.0.0.1/secondContainer/first">first</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
+        <td><a href="http://127.0.0.1/secondContainer/second">second</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+        <td><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+    </tbody>
+  </table>
+    </div>
+    </div>
     <div>
       <div class="buttons">
-        <input type="submit" id="contents-buttons-copy"
+  <input id="contents-buttons-copy"
          name="contents.buttons.copy"
-         class="submit-widget button-field" value="Copy" />
-        <input type="submit" id="contents-buttons-cut"
-         name="contents.buttons.cut"
-         class="submit-widget button-field" value="Cut" />
-        <input type="submit" id="contents-buttons-delete"
+         class="submit-widget button-field" value="Copy"
+         type="submit" />
+  <input id="contents-buttons-cut" name="contents.buttons.cut"
+         class="submit-widget button-field" value="Cut"
+         type="submit" />
+  <input id="contents-buttons-delete"
          name="contents.buttons.delete"
-         class="submit-widget button-field" value="Delete" />
-        <input type="submit" id="contents-buttons-rename"
+         class="submit-widget button-field" value="Delete"
+         type="submit" />
+  <input id="contents-buttons-rename"
          name="contents.buttons.rename"
-         class="submit-widget button-field" value="Rename" />
+         class="submit-widget button-field" value="Rename"
+         type="submit" />
       </div>
     </div>
   </form>
@@ -650,42 +842,77 @@ gone:
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         name="contents" id="contents">
-  ...
-  <tbody>
-    <tr>
-      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
-      <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
-      <td>01/01/01 01:01</td>
-      <td>02/02/02 02:02</td>
-    </tr>
-    <tr>
-      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
-      <td><a href="http://127.0.0.1/container/third">third</a></td>
-      <td>01/01/01 01:01</td>
-      <td>02/02/02 02:02</td>
-    </tr>
-    <tr>
-      <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-      <td><a href="http://127.0.0.1/container/zero">zero</a></td>
-      <td>01/01/01 01:01</td>
-      <td>02/02/02 02:02</td>
-    </tr>
-  </tbody>
-  ...
+    <div class="viewspace">
+      <div>
+      <fieldset>
+        <legend>Search</legend>
+          <table>
+  <tr>
+  <td class="row">
+    <label for="search-widgets-searchterm">Search</label>
+      <input id="search-widgets-searchterm"
+             name="search.widgets.searchterm"
+             class="text-widget required textline-field"
+             value="" type="text" />
+  </td>
+  <td class="action">
+  <input id="search-buttons-search"
+         name="search.buttons.search"
+         class="submit-widget button-field" value="Search"
+         type="submit" />
+  </td>
+  </tr>
+  </table>
+      </fieldset>
+      <table>
+    <thead>
+      <tr>
+        <th>X</th>
+        <th>Name</th>
+        <th>Created</th>
+        <th>Modified</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
+        <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
+        <td><a href="http://127.0.0.1/container/third">third</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+        <td><a href="http://127.0.0.1/container/zero">zero</a></td>
+        <td>01/01/01 01:01</td>
+        <td>02/02/02 02:02</td>
+      </tr>
+    </tbody>
+  </table>
+    </div>
+    </div>
     <div>
       <div class="buttons">
-        <input type="submit" id="contents-buttons-copy"
-               name="contents.buttons.copy"
-               class="submit-widget button-field" value="Copy" />
-        <input type="submit" id="contents-buttons-cut"
-               name="contents.buttons.cut"
-               class="submit-widget button-field" value="Cut" />
-        <input type="submit" id="contents-buttons-delete"
-               name="contents.buttons.delete"
-               class="submit-widget button-field" value="Delete" />
-        <input type="submit" id="contents-buttons-rename"
-               name="contents.buttons.rename"
-               class="submit-widget button-field" value="Rename" />
+  <input id="contents-buttons-copy"
+         name="contents.buttons.copy"
+         class="submit-widget button-field" value="Copy"
+         type="submit" />
+  <input id="contents-buttons-cut" name="contents.buttons.cut"
+         class="submit-widget button-field" value="Cut"
+         type="submit" />
+  <input id="contents-buttons-delete"
+         name="contents.buttons.delete"
+         class="submit-widget button-field" value="Delete"
+         type="submit" />
+  <input id="contents-buttons-rename"
+         name="contents.buttons.rename"
+         class="submit-widget button-field" value="Rename"
+         type="submit" />
       </div>
     </div>
   </form>
@@ -982,10 +1209,6 @@ row CSS class markers. The default batch size is set to ``25``:
         enctype="multipart/form-data" class="edit-form"
         name="contents" id="contents">
     <div class="viewspace">
-        <div class="required-info">
-           <span class="required">*</span>
-           &ndash; required
-        </div>
       <div>
       <fieldset>
         <legend>Search</legend>
@@ -993,14 +1216,16 @@ row CSS class markers. The default batch size is set to ``25``:
   <tr>
   <td class="row">
     <label for="search-widgets-searchterm">Search</label>
-    <input type="text" id="search-widgets-searchterm"
-         name="search.widgets.searchterm"
-         class="text-widget required textline-field" value="" />
+      <input id="search-widgets-searchterm"
+             name="search.widgets.searchterm"
+             class="text-widget required textline-field"
+             value="" type="text" />
   </td>
   <td class="action">
-    <input type="submit" id="search-buttons-search"
+  <input id="search-buttons-search"
          name="search.buttons.search"
-         class="submit-widget button-field" value="Search" />
+         class="submit-widget button-field" value="Search"
+         type="submit" />
   </td>
   </tr>
   </table>
@@ -1039,18 +1264,21 @@ row CSS class markers. The default batch size is set to ``25``:
     </div>
     <div>
       <div class="buttons">
-        <input type="submit" id="contents-buttons-copy"
+  <input id="contents-buttons-copy"
          name="contents.buttons.copy"
-         class="submit-widget button-field" value="Copy" />
-        <input type="submit" id="contents-buttons-cut"
-         name="contents.buttons.cut"
-         class="submit-widget button-field" value="Cut" />
-        <input type="submit" id="contents-buttons-delete"
+         class="submit-widget button-field" value="Copy"
+         type="submit" />
+  <input id="contents-buttons-cut" name="contents.buttons.cut"
+         class="submit-widget button-field" value="Cut"
+         type="submit" />
+  <input id="contents-buttons-delete"
          name="contents.buttons.delete"
-         class="submit-widget button-field" value="Delete" />
-        <input type="submit" id="contents-buttons-rename"
+         class="submit-widget button-field" value="Delete"
+         type="submit" />
+  <input id="contents-buttons-rename"
          name="contents.buttons.rename"
-         class="submit-widget button-field" value="Rename" />
+         class="submit-widget button-field" value="Rename"
+         type="submit" />
       </div>
     </div>
   </form>

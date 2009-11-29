@@ -20,6 +20,9 @@ import lxml
 import zope.component
 import zope.interface
 from zope.annotation.interfaces import IAnnotations
+from zope.container.interfaces import IContainer
+from zope.container.interfaces import IContained
+from zope.container import btree
 from zope.copypastemove import ContainerItemRenamer
 from zope.copypastemove import ObjectMover
 from zope.copypastemove import ObjectCopier
@@ -30,8 +33,6 @@ from zope.copypastemove.interfaces import IObjectCopier
 from zope.copypastemove.interfaces import IPrincipalClipboard
 from zope.index.text.interfaces import ISearchableText
 
-from zope.app.container.interfaces import IContainer
-from zope.app.container.interfaces import IContained
 from zope.app.testing import functional
 from zope.app.testing import setup
 
@@ -46,6 +47,12 @@ import z3c.contents.value
 # test component
 #
 ###############################################################################
+
+class SampleContainer(btree.BTreeContainer):
+    """Sample container."""
+
+    zope.interface.implements(IContainer)
+
 
 class IContentsTestBrowserLayer(z3c.layer.ready2go.IReady2GoBrowserLayer):
         """test layer."""

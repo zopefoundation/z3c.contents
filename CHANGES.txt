@@ -2,14 +2,17 @@
 CHANGES
 =======
 
-Version 0.5.1dev (unreleased)
------------------------------
+0.6.0 (2009-11-29)
+------------------
+
+- adjust imports, reflect changes in zope packages
 
 - Fix error in the template when ``allowSearch`` attribute of
   the view is set to False and there's no search form.
 
-Version 0.5.0 (2008-04-13)
---------------------------
+
+0.5.0 (2008-04-13)
+------------------
 
 - Refactored the search implementation. Now it's very easy to customize the 
   search. The offered z3c.table.interfaces.IValue adapter based search allows

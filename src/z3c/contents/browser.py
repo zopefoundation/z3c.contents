@@ -21,6 +21,8 @@ import zope.interface
 import zope.i18nmessageid
 import zope.i18n
 from zope.annotation.interfaces import IAnnotations
+from zope.container.interfaces import IContainerNamesContainer
+from zope.container.interfaces import DuplicateIDError
 from zope.copypastemove import ItemNotFoundError
 from zope.copypastemove.interfaces import IPrincipalClipboard
 from zope.copypastemove.interfaces import IObjectCopier, IObjectMover
@@ -31,8 +33,6 @@ from zope.security.proxy import removeSecurityProxy
 from zope.security.interfaces import Unauthorized
 from zope.traversing.interfaces import TraversalError
 from zope.traversing import api
-from zope.app.container.interfaces import IContainerNamesContainer
-from zope.app.container.interfaces import DuplicateIDError
 
 from z3c.form import button, field
 from z3c.formui import form

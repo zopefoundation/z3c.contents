@@ -18,11 +18,11 @@ __docformat__ = "reStructuredText"
 
 import zope.interface
 import zope.component
+from zope.container.interfaces import IReadContainer
+from zope.container.interfaces import IObjectFindFilter
+from zope.container.find import SimpleIdFindFilter
 from zope.index.text.interfaces import ISearchableText
 from zope.publisher.interfaces.browser import IBrowserRequest
-from zope.app.container.interfaces import IReadContainer
-from zope.app.container.interfaces import IObjectFindFilter
-from zope.app.container.find import SimpleIdFindFilter
 
 import z3c.table.value
 from z3c.contents import interfaces
