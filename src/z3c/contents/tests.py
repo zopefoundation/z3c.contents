@@ -22,7 +22,8 @@ from zope.app.testing import functional
 
 from z3c.contents import testing
 
-functional.defineLayer('TestLayer', 'ftesting.zcml')
+functional.defineLayer('TestLayer', 'ftesting.zcml',
+                       allow_teardown=True)
 
 
 def test_suite():

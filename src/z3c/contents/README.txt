@@ -35,11 +35,16 @@ And we need to setup the form defaults first:
   >>> setupFormDefaults()
 
 And we need to configure our contents.pt template for the ContentsPage. We
-also configure the template for the search sub form here too.
+also configure the template for the search sub form here too.  And we
+make sure the configuration is applied to the global site manager, to
+avoid problems with unpicklable z3c:template adapters.
 
   >>> import os
   >>> import sys
   >>> from zope.configuration import xmlconfig
+  >>> from zope.component.hooks import setSite, getSite
+  >>> site = getSite()
+  >>> setSite(None)
   >>> import z3c.template
   >>> context = xmlconfig.file('meta.zcml', z3c.template)
   >>> contentsTemplate = os.path.join(os.path.dirname(z3c.contents.__file__),
@@ -89,6 +94,10 @@ And support the div form layer for our request:
   >>> from z3c.form.testing import TestRequest
   >>> request = TestRequest()
   >>> alsoProvides(request, IDivFormLayer)
+
+Restore the site now that we're done with the configuration.
+
+  >>> setSite(site)
 
 
 ContentsPage
