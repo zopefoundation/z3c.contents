@@ -2,7 +2,7 @@
 Contents
 ========
 
-The goal of this package is to offer a modular replacement for the default 
+The goal of this package is to offer a modular replacement for the default
 contents.html page used in Zope3.
 
 
@@ -25,7 +25,7 @@ name column ascending.
   >>> browser.open(URL % '/')
   >>> printElement(browser, "//table/thead/tr/th", multiple=True)
   <th>X</th>
-  <th><a
+  <th class="sorted-on ascending"><a
     href="?contents-sortOn=contents-renameColumn-1&amp;contents-sortOrder=descending"
     title="Sort">Name</a></th>
   <th><a
@@ -56,6 +56,7 @@ attributes on the contained objects.
 Note that the searchterms are also now included in the sorting header link.
 
   >>> printElement(browser, "//table/thead/tr/th[2]")
-  <th><a
+  <th class="sorted-on ascending"><a
     href="?contents-sortOn=contents-renameColumn-1&amp;contents-sortOrder=descending&amp;search.widgets.searchterm=4+second+Third"
     title="Sort">Name</a></th>
+  

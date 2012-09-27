@@ -2,7 +2,7 @@
 Contents
 ========
 
-The goal of this package is to offer a modular replacement for the default 
+The goal of this package is to offer a modular replacement for the default
 contents.html page used in Zope3.
 
 
@@ -66,7 +66,7 @@ avoid problems with unpicklable z3c:template adapters.
   ... """ % (contentsTemplate, searchTemplate), context=context)
 
 
-And load the formui configuration, which will make sure that all macros get 
+And load the formui configuration, which will make sure that all macros get
 registered correctly.
 
   >>> from zope.configuration import xmlconfig
@@ -161,7 +161,7 @@ Now we can create a ContentsPage:
 Columns
 -------
 
-We register our predefined columns as adapters this allows us later to enhance 
+We register our predefined columns as adapters this allows us later to enhance
 existing contents.html pages with additional columns. Use the adapter directive
 for this:
 
@@ -222,7 +222,7 @@ Now let's update and render the contents page again:
     <thead>
       <tr>
         <th>X</th>
-        <th>Name</th>
+        <th class="sorted-on ascending">Name</th>
         <th>Created</th>
         <th>Modified</th>
       </tr>
@@ -230,31 +230,31 @@ Now let's update and render the contents page again:
     <tbody>
       <tr>
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
-        <td><a href="http://127.0.0.1/container/first">first</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/container/first">first</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
       <tr>
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
-        <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/container/fourth">fourth</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
       <tr>
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
-        <td><a href="http://127.0.0.1/container/second">second</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/container/second">second</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
       <tr>
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
-        <td><a href="http://127.0.0.1/container/third">third</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/container/third">third</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
       <tr>
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-        <td><a href="http://127.0.0.1/container/zero">zero</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/container/zero">zero</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
@@ -286,9 +286,9 @@ Now let's update and render the contents page again:
 Sorting
 -------
 
-The contents page supports sorting by columns. We can do this be set the 
-sortOn request variable as we see in the head link of each column. Let's 
-reverse the default sort order. Note, order depends on the alphabetic oder of 
+The contents page supports sorting by columns. We can do this be set the
+sortOn request variable as we see in the head link of each column. Let's
+reverse the default sort order. Note, order depends on the alphabetic oder of
 number names and not on the number itself.
 
   >>> sorterRequest = TestRequest(form={'contents-sortOn': 'contents-checkBoxColumn-0',
@@ -325,7 +325,7 @@ number names and not on the number itself.
       <table>
     <thead>
       <tr>
-        <th>X</th>
+        <th class="sorted-on descending">X</th>
         <th>Name</th>
         <th>Created</th>
         <th>Modified</th>
@@ -333,31 +333,31 @@ number names and not on the number itself.
     </thead>
     <tbody>
       <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
+        <td class="sorted-on descending"><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
         <td><a href="http://127.0.0.1/container/zero">zero</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
       <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
+        <td class="sorted-on descending"><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
         <td><a href="http://127.0.0.1/container/third">third</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
       <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
+        <td class="sorted-on descending"><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
         <td><a href="http://127.0.0.1/container/second">second</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
       <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
+        <td class="sorted-on descending"><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
         <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
       <tr>
-        <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
+        <td class="sorted-on descending"><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
         <td><a href="http://127.0.0.1/container/first">first</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
@@ -402,31 +402,31 @@ Let's make coverage happy and sort on the rename column:
   <tbody>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
-      <td><a href="http://127.0.0.1/container/first">first</a></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/container/first">first</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
-      <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/container/fourth">fourth</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
-      <td><a href="http://127.0.0.1/container/second">second</a></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/container/second">second</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
-      <td><a href="http://127.0.0.1/container/third">third</a></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/container/third">third</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-      <td><a href="http://127.0.0.1/container/zero">zero</a></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/container/zero">zero</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
@@ -445,7 +445,7 @@ And we need another contents page instance:
 
   >>> secondPage = browser.ContentsPage(secondContainer, request)
 
-As you can see the second page for the second container has no items and 
+As you can see the second page for the second container has no items and
 no buttons:
 
   >>> secondPage.update()
@@ -479,7 +479,7 @@ no buttons:
     <thead>
       <tr>
         <th>X</th>
-        <th>Name</th>
+        <th class="sorted-on ascending">Name</th>
         <th>Created</th>
         <th>Modified</th>
       </tr>
@@ -541,7 +541,7 @@ be able to paste objects within the same container they're copied from.
     <thead>
       <tr>
         <th>X</th>
-        <th>Name</th>
+        <th class="sorted-on ascending">Name</th>
         <th>Created</th>
         <th>Modified</th>
       </tr>
@@ -549,31 +549,31 @@ be able to paste objects within the same container they're copied from.
     <tbody>
       <tr>
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
-        <td><a href="http://127.0.0.1/container/first">first</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/container/first">first</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
       <tr>
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
-        <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/container/fourth">fourth</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
       <tr>
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
-        <td><a href="http://127.0.0.1/container/second">second</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/container/second">second</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
       <tr>
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
-        <td><a href="http://127.0.0.1/container/third">third</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/container/third">third</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
       <tr>
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero" checked="checked" /></td>
-        <td><a href="http://127.0.0.1/container/zero">zero</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/container/zero">zero</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
@@ -612,8 +612,8 @@ Copy - Paste
 
 Now we can go to the second page and paste our selected object. Just prepare
 a request which simulates that we clicked at the paste button and we can see
-that we pasted the selected item to the second container. You can also see 
-that the ``Paste`` button, because the clipboard contains items copied 
+that we pasted the selected item to the second container. You can also see
+that the ``Paste`` button, because the clipboard contains items copied
 from another container.
 
   >>> pasteRequest = TestRequest(form={'contents.buttons.paste': 'Paste'})
@@ -653,7 +653,7 @@ from another container.
     <thead>
       <tr>
         <th>X</th>
-        <th>Name</th>
+        <th class="sorted-on ascending">Name</th>
         <th>Created</th>
         <th>Modified</th>
       </tr>
@@ -661,7 +661,7 @@ from another container.
     <tbody>
       <tr>
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-        <td><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
@@ -719,31 +719,31 @@ container.
   <tbody>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first" checked="checked" /></td>
-      <td><a href="http://127.0.0.1/container/first">first</a></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/container/first">first</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
-      <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/container/fourth">fourth</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second" checked="checked" /></td>
-      <td><a href="http://127.0.0.1/container/second">second</a></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/container/second">second</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
-      <td><a href="http://127.0.0.1/container/third">third</a></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/container/third">third</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-      <td><a href="http://127.0.0.1/container/zero">zero</a></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/container/zero">zero</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
@@ -792,7 +792,7 @@ And we can paste the selectded items to the second container:
     <thead>
       <tr>
         <th>X</th>
-        <th>Name</th>
+        <th class="sorted-on ascending">Name</th>
         <th>Created</th>
         <th>Modified</th>
       </tr>
@@ -800,19 +800,19 @@ And we can paste the selectded items to the second container:
     <tbody>
       <tr>
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
-        <td><a href="http://127.0.0.1/secondContainer/first">first</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/secondContainer/first">first</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
       <tr>
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second"  /></td>
-        <td><a href="http://127.0.0.1/secondContainer/second">second</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/secondContainer/second">second</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
       <tr>
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-        <td><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
@@ -842,7 +842,7 @@ And we can paste the selectded items to the second container:
   </form>
 
 
-As you can see the first page does not contain the ``first`` and ``second`` 
+As you can see the first page does not contain the ``first`` and ``second``
 item after paste them to the second container. Also the ``paste button`` is
 gone:
 
@@ -877,7 +877,7 @@ gone:
     <thead>
       <tr>
         <th>X</th>
-        <th>Name</th>
+        <th class="sorted-on ascending">Name</th>
         <th>Created</th>
         <th>Modified</th>
       </tr>
@@ -885,19 +885,19 @@ gone:
     <tbody>
       <tr>
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fourth"  /></td>
-        <td><a href="http://127.0.0.1/container/fourth">fourth</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/container/fourth">fourth</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
       <tr>
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="third"  /></td>
-        <td><a href="http://127.0.0.1/container/third">third</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/container/third">third</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
       <tr>
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-        <td><a href="http://127.0.0.1/container/zero">zero</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/container/zero">zero</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
@@ -951,7 +951,7 @@ items and click the delete button:
   <tbody>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-      <td><a href="http://127.0.0.1/container/zero">zero</a></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/container/zero">zero</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
@@ -963,8 +963,8 @@ Rename
 
 If we like to rename items, we can do this with the ``Rename`` button. This
 means if we use them, we will get input widgets for the selected items rendered
-in the table. After that, we can click the button another time which will 
-do the renaming. Let's setup a table which we select items and click the 
+in the table. After that, we can click the button another time which will
+do the renaming. Let's setup a table which we select items and click the
 ``Rename`` button:
 
   >>> renameRequest = TestRequest(
@@ -981,19 +981,19 @@ do the renaming. Let's setup a table which we select items and click the
   <tbody>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first" checked="checked" /></td>
-      <td><a href="http://127.0.0.1/secondContainer/first">first</a>&nbsp;<input type="text" name="contents-renameColumn-1-Zmlyc3Q=-rename" value="first" /></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/secondContainer/first">first</a>&nbsp;<input type="text" name="contents-renameColumn-1-Zmlyc3Q=-rename" value="first" /></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="second" checked="checked" /></td>
-      <td><a href="http://127.0.0.1/secondContainer/second">second</a>&nbsp;<input type="text" name="contents-renameColumn-1-c2Vjb25k-rename" value="second" /></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/secondContainer/second">second</a>&nbsp;<input type="text" name="contents-renameColumn-1-c2Vjb25k-rename" value="second" /></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-      <td><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
@@ -1022,26 +1022,26 @@ Now we rename the ``second`` item to ``fifth``:
   <tbody>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fifth"  /></td>
-      <td><a href="http://127.0.0.1/secondContainer/fifth">fifth</a></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/secondContainer/fifth">fifth</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first" checked="checked" /></td>
-      <td><a href="http://127.0.0.1/secondContainer/first">first</a>&nbsp;<input type="text" name="contents-renameColumn-1-Zmlyc3Q=-rename" value="first" />No new name given</td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/secondContainer/first">first</a>&nbsp;<input type="text" name="contents-renameColumn-1-Zmlyc3Q=-rename" value="first" />No new name given</td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-      <td><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
   </tbody>
   ...
 
-If we try to rename one item to another items name we will get a duplication 
+If we try to rename one item to another items name we will get a duplication
 error. Let's test this:
 
   >>> renameRequest = TestRequest(
@@ -1064,19 +1064,19 @@ error. Let's test this:
   <tbody>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fifth" checked="checked" /></td>
-      <td><a href="http://127.0.0.1/secondContainer/fifth">fifth</a>&nbsp;<input type="text" name="contents-renameColumn-1-ZmlmdGg=-rename" value="first" />Duplicated item name</td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/secondContainer/fifth">fifth</a>&nbsp;<input type="text" name="contents-renameColumn-1-ZmlmdGg=-rename" value="first" />Duplicated item name</td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first" checked="checked" /></td>
-      <td><a href="http://127.0.0.1/secondContainer/first">first</a>&nbsp;<input type="text" name="contents-renameColumn-1-Zmlyc3Q=-rename" value="fifth" />Duplicated item name</td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/secondContainer/first">first</a>&nbsp;<input type="text" name="contents-renameColumn-1-Zmlyc3Q=-rename" value="fifth" />Duplicated item name</td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-      <td><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
@@ -1084,8 +1084,8 @@ error. Let's test this:
   ...
 
 As you can see everything goes right. We can check the containers which should
-reflect the same as we see in the tables. Note the ``third`` and ``fourth`` 
-items get deleted and are gone now and the ``second`` item get renamed to 
+reflect the same as we see in the tables. Note the ``third`` and ``fourth``
+items get deleted and are gone now and the ``second`` item get renamed to
 ``fifth``:
 
   >>> sorted(container.items())
@@ -1121,13 +1121,13 @@ container or to any possible string attribute.
   <tbody>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
-      <td><a href="http://127.0.0.1/secondContainer/first">first</a></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/secondContainer/first">first</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
     <tr>
       <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-      <td><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
+      <td class="sorted-on ascending"><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
       <td>01/01/01 01:01</td>
       <td>02/02/02 02:02</td>
     </tr>
@@ -1161,9 +1161,7 @@ sort the table by that column.
   <thead>
     <tr>
       <th>X</th>
-      <th><a
-      href="?contents-sortOn=contents-renameColumn-1&contents-sortOrder=descending"
-      title="Sort">Name</a></th>
+      <th class="sorted-on ascending"><a href="?contents-sortOn=contents-renameColumn-1&contents-sortOrder=descending" title="Sort">Name</a></th>
       <th>Created</th>
       <th>Modified</th>
     </tr>
@@ -1186,9 +1184,7 @@ included in the query so as to maintain the search across views.
   <thead>
     <tr>
       <th>X</th>
-      <th><a
-      href="?contents-sortOn=contents-renameColumn-1&contents-sortOrder=descending&search.widgets.searchterm=First+zero"
-      title="Sort">Name</a></th>
+      <th class="sorted-on ascending"><a href="?contents-sortOn=contents-renameColumn-1&contents-sortOrder=descending&search.widgets.searchterm=First+zero" title="Sort">Name</a></th>
       <th>Created</th>
       <th>Modified</th>
     </tr>
@@ -1205,8 +1201,8 @@ TODO: add tests for batching
 Contents
 --------
 
-There is a ContentsPage with useful defaults. This contents page provides 
-a CSS class called ``contents`` for the table tag and uses ``even`` and ``odd`` 
+There is a ContentsPage with useful defaults. This contents page provides
+a CSS class called ``contents`` for the table tag and uses ``even`` and ``odd``
 row CSS class markers. The default batch size is set to ``25``:
 
   >>> request = TestRequest()
@@ -1243,7 +1239,7 @@ row CSS class markers. The default batch size is set to ``25``:
     <thead>
       <tr>
         <th>X</th>
-        <th><a href="?contents-sortOn=contents-renameColumn-1&contents-sortOrder=descending" title="Sort">Name</a></th>
+        <th class="sorted-on ascending"><a href="?contents-sortOn=contents-renameColumn-1&contents-sortOrder=descending" title="Sort">Name</a></th>
         <th>Created</th>
         <th>Modified</th>
       </tr>
@@ -1251,19 +1247,19 @@ row CSS class markers. The default batch size is set to ``25``:
     <tbody>
       <tr class="even">
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="fifth"  /></td>
-        <td><a href="http://127.0.0.1/secondContainer/fifth">fifth</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/secondContainer/fifth">fifth</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
       <tr class="odd">
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="first"  /></td>
-        <td><a href="http://127.0.0.1/secondContainer/first">first</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/secondContainer/first">first</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
       <tr class="even">
         <td><input type="checkbox" class="checkbox-widget" name="contents-checkBoxColumn-0-selectedItems" value="zero"  /></td>
-        <td><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
+        <td class="sorted-on ascending"><a href="http://127.0.0.1/secondContainer/zero">zero</a></td>
         <td>01/01/01 01:01</td>
         <td>02/02/02 02:02</td>
       </tr>
