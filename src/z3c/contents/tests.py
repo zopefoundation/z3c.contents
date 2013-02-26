@@ -22,22 +22,26 @@ from zope.app.testing import functional
 
 from z3c.contents import testing
 
+TestLayer = None # shut up pyflakes warning
 functional.defineLayer('TestLayer', 'ftesting.zcml',
                        allow_teardown=True)
 
 
 def test_suite():
+    optionflags = (doctest.NORMALIZE_WHITESPACE
+                   | doctest.ELLIPSIS
+                   | doctest.REPORT_NDIFF)
     docTest = functional.FunctionalDocFileSuite('BROWSER.txt',
         setUp=testing.doctestSetUp, tearDown=testing.doctestTearDown,
-        optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS)
+        optionflags=optionflags)
     docTest.layer = TestLayer
-    return unittest.TestSuite((
+    return unittest.TestSuite([
         doctest.DocFileSuite('README.txt',
             setUp=testing.setUp, tearDown=testing.tearDown,
-            optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,
+            optionflags=optionflags,
             ),
         docTest,
-        ))
+    ])
 
 
 if __name__ == '__main__':
