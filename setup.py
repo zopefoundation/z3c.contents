@@ -61,6 +61,7 @@ setup (
             'zope.app.securitypolicy',
             'zope.app.testing',
             'zope.testing',
+            'zope.tal >= 4.0.0a1', # attribute order changes
             ],
         ),
     install_requires = [

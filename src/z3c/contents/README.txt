@@ -111,7 +111,7 @@ Now we can create a ContentsPage:
   >>> print firstPage.render()
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
-        name="contents" id="contents">
+        id="contents" name="contents">
     <div class="viewspace">
       <div>
       <fieldset>
@@ -195,7 +195,7 @@ Now let's update and render the contents page again:
   >>> print firstPage.render()
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
-        name="contents" id="contents">
+        id="contents" name="contents">
     <div class="viewspace">
       <div>
       <fieldset>
@@ -299,7 +299,7 @@ number names and not on the number itself.
   >>> print sortingPage.render()
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
-        name="contents" id="contents">
+        id="contents" name="contents">
     <div class="viewspace">
       <div>
       <fieldset>
@@ -397,7 +397,7 @@ Let's make coverage happy and sort on the rename column:
   >>> print sortingPage.render()
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
-        name="contents" id="contents">
+        id="contents" name="contents">
   ...
   <tbody>
     <tr>
@@ -452,7 +452,7 @@ no buttons:
   >>> print secondPage.render()
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
-        name="contents" id="contents">
+        id="contents" name="contents">
     <div class="viewspace">
       <div>
       <fieldset>
@@ -511,7 +511,7 @@ be able to paste objects within the same container they're copied from.
   >>> print copyPage.render()
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
-        name="contents" id="contents">
+        id="contents" name="contents">
     <div class="viewspace">
         <div class="status">
           <div class="summary">Items choosen for copy</div>
@@ -623,7 +623,7 @@ from another container.
   >>> print pastePage.render()
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
-        name="contents" id="contents">
+        id="contents" name="contents">
     <div class="viewspace">
         <div class="status">
           <div class="summary">Data successfully pasted</div>
@@ -710,7 +710,7 @@ container.
   >>> print cutPage.render()
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
-        name="contents" id="contents">
+        id="contents" name="contents">
   ...
         <div class="status">
           <div class="summary">Items selected for cut</div>
@@ -762,7 +762,7 @@ And we can paste the selectded items to the second container:
   >>> print pastePage.render()
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
-        name="contents" id="contents">
+        id="contents" name="contents">
     <div class="viewspace">
         <div class="status">
           <div class="summary">Data successfully pasted</div>
@@ -850,7 +850,7 @@ gone:
   >>> print firstPage.render()
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
-        name="contents" id="contents">
+        id="contents" name="contents">
     <div class="viewspace">
       <div>
       <fieldset>
@@ -942,7 +942,7 @@ items and click the delete button:
   >>> print deletePage.render()
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
-        name="contents" id="contents">
+        id="contents" name="contents">
   ...
   <div class="status">
     <div class="summary">Data successfully deleted</div>
@@ -976,7 +976,7 @@ do the renaming. Let's setup a table which we select items and click the
   >>> print renamePage.render()
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
-        name="contents" id="contents">
+        id="contents" name="contents">
   ...
   <tbody>
     <tr>
@@ -1013,7 +1013,7 @@ Now we rename the ``second`` item to ``fifth``:
   >>> print renamePage.render()
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
-        name="contents" id="contents">
+        id="contents" name="contents">
   ...
   <div class="status">
     <div class="summary">Could not rename all selected items</div>
@@ -1055,7 +1055,7 @@ error. Let's test this:
   >>> print renamePage.render()
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
-        name="contents" id="contents">
+        id="contents" name="contents">
   ...
   <div class="status">
     <div class="summary">Could not rename all selected items</div>
@@ -1116,7 +1116,7 @@ container or to any possible string attribute.
   >>> print searchPage.render()
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
-        name="contents" id="contents">
+        id="contents" name="contents">
   ...
   <tbody>
     <tr>
@@ -1156,7 +1156,7 @@ sort the table by that column.
   >>> print headerPage.render()
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
-        name="contents" id="contents">
+        id="contents" name="contents">
   ...
   <thead>
     <tr>
@@ -1179,7 +1179,7 @@ included in the query so as to maintain the search across views.
   >>> print searchPage.render()
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
-        name="contents" id="contents">
+        id="contents" name="contents">
   ...
   <thead>
     <tr>
@@ -1212,7 +1212,7 @@ row CSS class markers. The default batch size is set to ``25``:
   >>> print contents.render()
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
-        name="contents" id="contents">
+        id="contents" name="contents">
     <div class="viewspace">
       <div>
       <fieldset>
