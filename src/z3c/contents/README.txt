@@ -107,7 +107,7 @@ Now we can create a ContentsPage:
   >>> from z3c.contents import browser
   >>> firstPage = browser.ContentsPage(container, request)
   >>> firstPage.update()
-  >>> print firstPage.render()
+  >>> print(firstPage.render())
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         id="contents" name="contents">
@@ -191,7 +191,7 @@ for this:
 Now let's update and render the contents page again:
 
   >>> firstPage.update()
-  >>> print firstPage.render()
+  >>> print(firstPage.render())
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         id="contents" name="contents">
@@ -295,7 +295,7 @@ number names and not on the number itself.
   >>> alsoProvides(sorterRequest, IDivFormLayer)
   >>> sortingPage = browser.ContentsPage(container, sorterRequest)
   >>> sortingPage.update()
-  >>> print sortingPage.render()
+  >>> print(sortingPage.render())
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         id="contents" name="contents">
@@ -393,7 +393,7 @@ Let's make coverage happy and sort on the rename column:
   >>> alsoProvides(sorterRequest, IDivFormLayer)
   >>> sortingPage = browser.ContentsPage(container, sorterRequest)
   >>> sortingPage.update()
-  >>> print sortingPage.render()
+  >>> print(sortingPage.render())
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         id="contents" name="contents">
@@ -448,7 +448,7 @@ As you can see the second page for the second container has no items and
 no buttons:
 
   >>> secondPage.update()
-  >>> print secondPage.render()
+  >>> print(secondPage.render())
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         id="contents" name="contents">
@@ -507,7 +507,7 @@ be able to paste objects within the same container they're copied from.
   >>> alsoProvides(copyRequest, IDivFormLayer)
   >>> copyPage = browser.ContentsPage(container, copyRequest)
   >>> copyPage.update()
-  >>> print copyPage.render()
+  >>> print(copyPage.render())
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         id="contents" name="contents">
@@ -619,7 +619,7 @@ from another container.
   >>> alsoProvides(pasteRequest, IDivFormLayer)
   >>> pastePage = browser.ContentsPage(secondContainer, pasteRequest)
   >>> pastePage.update()
-  >>> print pastePage.render()
+  >>> print(pastePage.render())
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         id="contents" name="contents">
@@ -706,7 +706,7 @@ container.
   >>> alsoProvides(cutRequest, IDivFormLayer)
   >>> cutPage = browser.ContentsPage(container, cutRequest)
   >>> cutPage.update()
-  >>> print cutPage.render()
+  >>> print(cutPage.render())
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         id="contents" name="contents">
@@ -758,7 +758,7 @@ And we can paste the selectded items to the second container:
   >>> alsoProvides(pasteRequest, IDivFormLayer)
   >>> pastePage = browser.ContentsPage(secondContainer, pasteRequest)
   >>> pastePage.update()
-  >>> print pastePage.render()
+  >>> print(pastePage.render())
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         id="contents" name="contents">
@@ -846,7 +846,7 @@ item after paste them to the second container. Also the ``paste button`` is
 gone:
 
   >>> firstPage.update()
-  >>> print firstPage.render()
+  >>> print(firstPage.render())
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         id="contents" name="contents">
@@ -938,7 +938,7 @@ items and click the delete button:
   >>> alsoProvides(deleteRequest, IDivFormLayer)
   >>> deletePage = browser.ContentsPage(container, deleteRequest)
   >>> deletePage.update()
-  >>> print deletePage.render()
+  >>> print(deletePage.render())
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         id="contents" name="contents">
@@ -972,7 +972,7 @@ do the renaming. Let's setup a table which we select items and click the
   >>> alsoProvides(renameRequest, IDivFormLayer)
   >>> renamePage = browser.ContentsPage(secondContainer, renameRequest)
   >>> renamePage.update()
-  >>> print renamePage.render()
+  >>> print(renamePage.render())
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         id="contents" name="contents">
@@ -1009,7 +1009,7 @@ Now we rename the ``second`` item to ``fifth``:
   >>> alsoProvides(renameRequest, IDivFormLayer)
   >>> renamePage = browser.ContentsPage(secondContainer, renameRequest)
   >>> renamePage.update()
-  >>> print renamePage.render()
+  >>> print(renamePage.render())
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         id="contents" name="contents">
@@ -1051,7 +1051,7 @@ error. Let's test this:
   >>> alsoProvides(renameRequest, IDivFormLayer)
   >>> renamePage = browser.ContentsPage(secondContainer, renameRequest)
   >>> renamePage.update()
-  >>> print renamePage.render()
+  >>> print(renamePage.render())
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         id="contents" name="contents">
@@ -1112,7 +1112,7 @@ container or to any possible string attribute.
   >>> alsoProvides(searchRequest, IDivFormLayer)
   >>> searchPage = browser.ContentsPage(secondContainer, searchRequest)
   >>> searchPage.update()
-  >>> print searchPage.render()
+  >>> print(searchPage.render())
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         id="contents" name="contents">
@@ -1152,7 +1152,7 @@ sort the table by that column.
   >>> alsoProvides(headerRequest, IDivFormLayer)
   >>> headerPage = browser.ContentsPage(secondContainer, headerRequest)
   >>> headerPage.update()
-  >>> print headerPage.render()
+  >>> print(headerPage.render())
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         id="contents" name="contents">
@@ -1175,7 +1175,7 @@ included in the query so as to maintain the search across views.
   >>> alsoProvides(searchRequest, IDivFormLayer)
   >>> searchPage = browser.ContentsPage(secondContainer, searchRequest)
   >>> searchPage.update()
-  >>> print searchPage.render()
+  >>> print(searchPage.render())
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         id="contents" name="contents">
@@ -1208,7 +1208,7 @@ row CSS class markers. The default batch size is set to ``25``:
   >>> alsoProvides(request, IDivFormLayer)
   >>> contents = browser.Contents(secondContainer, request)
   >>> contents.update()
-  >>> print contents.render()
+  >>> print(contents.render())
   <form action="http://127.0.0.1" method="post"
         enctype="multipart/form-data" class="edit-form"
         id="contents" name="contents">

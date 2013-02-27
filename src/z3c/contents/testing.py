@@ -48,10 +48,9 @@ import z3c.contents.value
 #
 ###############################################################################
 
+@zope.interface.implementer(IContainer)
 class SampleContainer(btree.BTreeContainer):
     """Sample container."""
-
-    zope.interface.implements(IContainer)
 
 
 class IContentsTestBrowserLayer(z3c.layer.ready2go.IReady2GoBrowserLayer):
@@ -68,10 +67,10 @@ class IContent(zope.interface.Interface):
     number = zope.schema.Int(title=u'Number')
 
 
+@zope.interface.implementer(IContent)
 class Content(object):
     """Sample content which is pickable for copy test."""
 
-    zope.interface.implements(IContent)
 
     def __init__(self, title, number):
         self.title = title
@@ -82,10 +81,9 @@ class Content(object):
             self.number)
 
 
+@zope.interface.implementer(ISearchableText)
+@zope.component.adapter(IContent)
 class SearchableTextForContent:
-
-    zope.interface.implements(ISearchableText)
-    zope.component.adapts(IContent)
 
     def __init__(self, content):
         self.content = content
@@ -111,8 +109,8 @@ def printElement(browser, xpath, multiple=False, serialize=True):
         print(elem)
 
 
+@zope.interface.implementer(IAnnotations)
 class PrincipalAnnotations(dict):
-    zope.interface.implements(IAnnotations)
     data = {}
     def __new__(class_, context=None):
         try:

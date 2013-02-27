@@ -47,6 +47,7 @@ class RenameColumn(column.NameColumn):
     def getItemKey(self, item):
         name = self.getItemValue(item)
         base64Name = base64.urlsafe_b64encode(name.encode('utf-8'))
+        base64Name = base64Name.decode('utf-8')
         return '%s-%s-rename' % (self.id, base64Name)
 
     def getRenameValue(self, item):

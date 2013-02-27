@@ -50,14 +50,14 @@ def _search_helper(id, obj, container, id_filters, object_filters, result):
         _search_helper(key, value, obj, id_filters, object_filters, result)
 
 
+@zope.interface.implementer(IObjectFindFilter)
 class SearchableTextFindFilter(object):
     """Filter objects on the ISearchableText adapters to the object."""
 
-    zope.interface.implements(IObjectFindFilter)
-    
+
     def __init__(self, terms):
         self.terms = terms
-    
+
     def matches(self, object):
         """Check if one of the search terms is found in the searchable text
         interface.

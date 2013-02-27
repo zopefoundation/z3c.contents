@@ -16,6 +16,7 @@ $Id:$
 """
 __docformat__ = "reStructuredText"
 
+import re
 import unittest
 from zope.testing import doctest
 
@@ -24,6 +25,8 @@ try:
     HAVE_FTESTS = True
 except ImportError:
     HAVE_FTESTS = False
+
+from zope.testing.renormalizing import RENormalizing
 
 from z3c.contents import testing
 
@@ -49,10 +52,13 @@ def ftest_suite():
 
 
 def test_suite():
+    checker = RENormalizing((
+            (re.compile("u'(.*?)'"), "'\\1'"),
+            ))
     return unittest.TestSuite([
         doctest.DocFileSuite('README.txt',
             setUp=testing.setUp, tearDown=testing.tearDown,
-            optionflags=optionflags,
+            optionflags=optionflags, checker=checker,
             ),
         ftest_suite(),
     ])
