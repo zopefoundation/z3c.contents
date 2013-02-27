@@ -5,7 +5,7 @@ CHANGES
 0.6.1 (unreleased)
 ------------------
 
-- ...
+- Added support for Python 3.3.
 
 
 0.6.0 (2009-11-29)
