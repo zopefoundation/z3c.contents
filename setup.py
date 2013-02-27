@@ -51,17 +51,19 @@ setup (
     namespace_packages = ['z3c'],
     extras_require = dict(
         test = [
+            'lxml',
             'z3c.macro',
             'z3c.layer.ready2go',
-            'z3c.macro',
             'z3c.table',
-            'z3c.etestbrowser',
-            'zope.app.component',
-            'zope.app.pagetemplate',
-            'zope.app.securitypolicy',
-            'zope.app.testing',
             'zope.testing',
             'zope.tal >= 4.0.0a1', # attribute order changes
+            ],
+        ftest = [
+            'z3c.etestbrowser',
+            'zope.app.component',
+            'zope.browserpage',
+            'zope.app.securitypolicy',
+            'zope.app.testing',
             ],
         ),
     install_requires = [
@@ -84,5 +86,6 @@ setup (
         'zope.security',
         'zope.traversing',
         ],
+    test_suite='z3c.contents.tests.test_suite',
     zip_safe = False,
 )

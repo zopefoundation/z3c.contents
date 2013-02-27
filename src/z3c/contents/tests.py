@@ -18,29 +18,43 @@ __docformat__ = "reStructuredText"
 
 import unittest
 from zope.testing import doctest
-from zope.app.testing import functional
+
+try:
+    from zope.app.testing import functional
+    HAVE_FTESTS = True
+except ImportError:
+    HAVE_FTESTS = False
 
 from z3c.contents import testing
 
+
+optionflags = (doctest.NORMALIZE_WHITESPACE
+               | doctest.ELLIPSIS
+               | doctest.REPORT_NDIFF)
+
 TestLayer = None # shut up pyflakes warning
-functional.defineLayer('TestLayer', 'ftesting.zcml',
-                       allow_teardown=True)
+if HAVE_FTESTS:
+    functional.defineLayer('TestLayer', 'ftesting.zcml',
+                           allow_teardown=True)
 
 
-def test_suite():
-    optionflags = (doctest.NORMALIZE_WHITESPACE
-                   | doctest.ELLIPSIS
-                   | doctest.REPORT_NDIFF)
+def ftest_suite():
+    if not HAVE_FTESTS:
+        return unittest.TestSuite()
     docTest = functional.FunctionalDocFileSuite('BROWSER.txt',
         setUp=testing.doctestSetUp, tearDown=testing.doctestTearDown,
         optionflags=optionflags)
     docTest.layer = TestLayer
+    return docTest
+
+
+def test_suite():
     return unittest.TestSuite([
         doctest.DocFileSuite('README.txt',
             setUp=testing.setUp, tearDown=testing.tearDown,
             optionflags=optionflags,
             ),
-        docTest,
+        ftest_suite(),
     ])
 
 

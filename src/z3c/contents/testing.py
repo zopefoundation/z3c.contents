@@ -33,8 +33,8 @@ from zope.copypastemove.interfaces import IObjectCopier
 from zope.copypastemove.interfaces import IPrincipalClipboard
 from zope.index.text.interfaces import ISearchableText
 
-from zope.app.testing import functional
-from zope.app.testing import setup
+from zope.site.testing import siteSetUp, siteTearDown
+from zope.traversing import testing as traversing
 
 import z3c.macro.tales
 import z3c.layer.ready2go
@@ -105,10 +105,10 @@ def printElement(browser, xpath, multiple=False, serialize=True):
     result = [serialize and lxml.etree.tounicode(elem) or elem
               for elem in browser.etree.xpath(xpath)]
     if not multiple:
-        print result[0]
+        print(result[0])
         return
     for elem in result:
-        print elem
+        print(elem)
 
 
 class PrincipalAnnotations(dict):
@@ -134,14 +134,16 @@ class PrincipalAnnotations(dict):
 ###############################################################################
 
 def setUp(test):
-    test.globs = {'root': setup.placefulSetUp(True)}
+    test.globs = {'root': siteSetUp(True)}
 
-    from zope.app.pagetemplate import metaconfigure
+    traversing.setUp()
+
+    from zope.browserpage import metaconfigure
     metaconfigure.registerType('macro', z3c.macro.tales.MacroExpression)
 
     zope.component.provideAdapter(ObjectCopier, (IContained,), IObjectCopier)
     zope.component.provideAdapter(ObjectMover, (IContained,), IObjectMover)
-    zope.component.provideAdapter(ContainerItemRenamer, (IContainer,), 
+    zope.component.provideAdapter(ContainerItemRenamer, (IContainer,),
         IContainerItemRenamer)
 
     zope.component.provideAdapter(PrincipalClipboard, (IAnnotations,),
@@ -158,13 +160,15 @@ def setUp(test):
 
 
 def tearDown(test):
-    setup.placefulTearDown()
+    siteTearDown()
 
 
 def doctestSetUp(test):
+    from zope.app.testing import functional
     functional.FunctionalTestSetup().setUp()
     test.globs['getRootFolder'] = functional.getRootFolder
     test.globs['printElement'] = printElement
 
 def doctestTearDown(test):
+    from zope.app.testing import functional
     functional.FunctionalTestSetup().tearDown()

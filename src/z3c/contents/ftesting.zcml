@@ -6,7 +6,7 @@
 
   <include package="zope.app.component" file="meta.zcml" />
   <include package="zope.app.form.browser" file="meta.zcml" />
-  <include package="zope.app.pagetemplate" file="meta.zcml" />
+  <include package="zope.browserpage" file="meta.zcml" />
   <include package="zope.app.publication" file="meta.zcml" />
   <include package="zope.app.publisher" file="meta.zcml" />
   <include package="zope.app.security" file="meta.zcml" />

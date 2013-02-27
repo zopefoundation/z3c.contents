@@ -106,10 +106,10 @@ def canRename(form):
     return form.supportsRename
 
 
+@zope.interface.implementer(interfaces.IContentsPage)
 class ContentsPage(table.Table, form.Form):
     """Generic IContainer management page."""
 
-    zope.interface.implements(interfaces.IContentsPage)
 
     template = getPageTemplate()
 
