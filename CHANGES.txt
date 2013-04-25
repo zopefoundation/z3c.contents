@@ -5,7 +5,7 @@ CHANGES
 1.0.0a3 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Remove some deprecated ftest dependencies.
 
 
 1.0.0a2 (2013-02-28)

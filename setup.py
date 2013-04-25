@@ -65,9 +65,11 @@ setup (
             ],
         ftest = [
             'z3c.etestbrowser',
-            'zope.app.component',
             'zope.browserpage',
-            'zope.app.securitypolicy',
+            'zope.browserresource',
+            'zope.securitypolicy',
+            'zope.principalregistry',
+            'zope.app.container',
             'zope.app.testing',
             ],
         ),
