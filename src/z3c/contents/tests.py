@@ -51,13 +51,12 @@ def ftest_suite():
 
 def test_suite():
     checker = RENormalizing((
-            (re.compile("u'(.*?)'"), "'\\1'"),
-            ))
+        (re.compile("u'(.*?)'"), "'\\1'"),
+    ))
     return unittest.TestSuite([
         doctest.DocFileSuite('README.txt',
             setUp=testing.setUp, tearDown=testing.tearDown,
-            optionflags=optionflags, checker=checker,
-            ),
+            optionflags=optionflags, checker=checker),
         ftest_suite(),
     ])
 

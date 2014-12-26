@@ -52,7 +52,6 @@ def _search_helper(id, obj, container, id_filters, object_filters, result):
 class SearchableTextFindFilter(object):
     """Filter objects on the ISearchableText adapters to the object."""
 
-
     def __init__(self, terms):
         self.terms = terms
 

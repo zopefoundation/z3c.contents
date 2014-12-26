@@ -53,7 +53,7 @@ class RenameColumn(column.NameColumn):
         return self.request.get(key)
 
     def renderLink(self, item):
-        return '<a href="%s">%s</a>' % (absoluteURL(item, self.request), 
+        return '<a href="%s">%s</a>' % (absoluteURL(item, self.request),
             api.getName(item))
 
     def renderCell(self, item):

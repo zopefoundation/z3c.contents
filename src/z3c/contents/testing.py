@@ -69,7 +69,6 @@ class IContent(zope.interface.Interface):
 class Content(object):
     """Sample content which is pickable for copy test."""
 
-
     def __init__(self, title, number):
         self.title = title
         self.number = number
@@ -164,6 +163,7 @@ def doctestSetUp(test):
     functional.FunctionalTestSetup().setUp()
     test.globs['getRootFolder'] = functional.getRootFolder
     test.globs['printElement'] = printElement
+
 
 def doctestTearDown(test):
     from zope.app.testing import functional

@@ -108,7 +108,6 @@ def canRename(form):
 class ContentsPage(table.Table, form.Form):
     """Generic IContainer management page."""
 
-
     template = getPageTemplate()
 
     # internal search form provided by IValues adapter
@@ -346,10 +345,10 @@ class ContentsPage(table.Table, form.Form):
             # instead of raising an exception ?
             transaction.doom()
             raise UserError(
-                _("The given name(s) %s is / are already being used" %(
-                str(not_pasteable_ids))))
+                _("The given name(s) %s is / are already being used" % (
+                    str(not_pasteable_ids))))
         else:
-            # we need to update the table rows again, otherwise we don't 
+            # we need to update the table rows again, otherwise we don't
             # see the new item in the table
             self.updateAfterActionExecution()
             self.status = self.pasteSucsessMessage
@@ -423,6 +422,6 @@ class Contents(ContentsPage):
     cssClassEven = u'even'
     cssClassOdd = u'odd'
     cssClassSelected = u'selected'
-    
+
     batchSize = 25
     startBatchingAt = 25

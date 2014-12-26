@@ -15,23 +15,25 @@
 import os
 from setuptools import setup, find_packages
 
+
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-setup (
+
+setup(
     name='z3c.contents',
     version='1.0.0a3.dev0',
-    author = "Roger Ineichen and the Zope Community",
-    author_email = "zope3-dev@zope.org",
-    description = "Container management page based on z3c.form and z3c.table for Zope3",
+    author="Roger Ineichen and the Zope Community",
+    author_email="zope3-dev@zope.org",
+    description="Container management page based on z3c.form and z3c.table for Zope3",
     long_description=(
         read('README.txt')
         + '\n\n' +
         read('CHANGES.txt')
-        ),
-    license = "ZPL 2.1",
-    keywords = "zope3 z3c container manegement table contents",
-    classifiers = [
+    ),
+    license="ZPL 2.1",
+    keywords="zope3 z3c container manegement table contents",
+    classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
@@ -46,21 +48,21 @@ setup (
         'Operating System :: OS Independent',
         'Topic :: Internet :: WWW/HTTP',
         'Framework :: Zope3'],
-    url = 'http://cheeseshop.python.org/pypi/z3c.contents',
-    packages = find_packages('src'),
-    include_package_data = True,
-    package_dir = {'':'src'},
-    namespace_packages = ['z3c'],
-    extras_require = dict(
-        test = [
+    url='http://cheeseshop.python.org/pypi/z3c.contents',
+    packages=find_packages('src'),
+    include_package_data=True,
+    package_dir={'': 'src'},
+    namespace_packages=['z3c'],
+    extras_require=dict(
+        test=[
             'lxml',
             'z3c.macro',
             'z3c.layer.ready2go',
             'z3c.table',
             'zope.testing',
             'zope.tal >= 4.0.0a1', # attribute order changes
-            ],
-        ftest = [
+        ],
+        ftest=[
             'z3c.etestbrowser',
             'zope.browserpage',
             'zope.browserresource',
@@ -68,9 +70,9 @@ setup (
             'zope.principalregistry',
             'zope.app.container',
             'zope.app.testing',
-            ],
-        ),
-    install_requires = [
+        ],
+    ),
+    install_requires=[
         'setuptools',
         'z3c.form',
         'z3c.formui',
@@ -89,7 +91,7 @@ setup (
         'zope.schema',
         'zope.security',
         'zope.traversing',
-        ],
+    ],
     test_suite='z3c.contents.tests.test_suite',
-    zip_safe = False,
+    zip_safe=False,
 )
