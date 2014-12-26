@@ -11,9 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""
-$Id$
-"""
+
 __docformat__ = "reStructuredText"
 
 from z3c.table.header import SortingColumnHeader

@@ -11,9 +11,6 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""
-$Id:$
-"""
 
 import os
 from setuptools import setup, find_packages
