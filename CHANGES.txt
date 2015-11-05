@@ -9,6 +9,8 @@ CHANGES
 
 - Remove some deprecated ftest dependencies.
 
+- Claim support for Python 3.4
+
 
 1.0.0a2 (2013-02-28)
 --------------------
