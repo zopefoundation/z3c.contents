@@ -23,7 +23,7 @@ def read(*rnames):
 
 setup(
     name='z3c.contents',
-    version='1.0.0',
+    version='1.0.1.dev0',
     author="Roger Ineichen and the Zope Community",
     author_email="zope3-dev@zope.org",
     description="Container management page based on z3c.form and z3c.table for Zope3",
