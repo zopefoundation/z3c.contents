@@ -5,7 +5,8 @@ CHANGES
 1.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Stop claiming support for Python 3.x: our ftest dependency,
+  z3c.etestbrowser, doesn't support Python 3 yet.
 
 
 1.0.0 (2015-11-09)
